@@ -98,7 +98,7 @@ class HookCollectionUI_Dialog(object):
         self.comboBox.setItemText(1, _translate("Dialog", "Disabled"))
 
 
-define init():
+def init():
     app = QApplication(sys.argv)
     window = QDialog()
     ui = Ui_Dialog()
