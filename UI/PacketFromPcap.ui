@@ -288,11 +288,6 @@
                <string>Mask</string>
               </property>
              </column>
-             <column>
-              <property name="text">
-               <string>Display Format</string>
-              </property>
-             </column>
              <item>
               <property name="text">
                <string>icmp.type</string>
@@ -308,9 +303,6 @@
               <property name="text">
                <string>0</string>
               </property>
-              <property name="text">
-               <string/>
-              </property>
              </item>
              <item>
               <property name="text">
@@ -321,9 +313,6 @@
               </property>
               <property name="text">
                <string>0</string>
-              </property>
-              <property name="text">
-               <string/>
               </property>
              </item>
              <item>
@@ -336,9 +325,6 @@
               <property name="text">
                <string>1</string>
               </property>
-              <property name="text">
-               <string/>
-              </property>
              </item>
              <item>
               <property name="text">
@@ -350,9 +336,6 @@
               <property name="text">
                <string>0</string>
               </property>
-              <property name="text">
-               <string/>
-              </property>
              </item>
              <item>
               <property name="text">
@@ -363,9 +346,6 @@
               </property>
               <property name="text">
                <string>2</string>
-              </property>
-              <property name="text">
-               <string/>
               </property>
              </item>
             </widget>
@@ -498,6 +478,13 @@
                <string>Binary</string>
               </property>
              </item>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Display Format</string>
+             </property>
             </widget>
            </item>
           </layout>
