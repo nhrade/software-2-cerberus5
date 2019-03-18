@@ -15,20 +15,38 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton">
        <property name="text">
-        <string>Proxy behavior has been disabled. The system has restored to the
-previous proxy settings and it will stop appending
-packet information to the live traffic PCAP file.</string>
+        <string>Ok</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
+     <item row="1" column="0">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0" colspan="2">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>OK</string>
+        <string>Proxy behavior has been disabled. The system has restored to the previous proxy settings
+and it will stop appending packet information to the live traffic PCAP file.</string>
        </property>
       </widget>
      </item>
