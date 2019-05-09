@@ -40,8 +40,6 @@ def recieveFileName(file_ : str):
 		wrpcap(file_, capturedPacket, append = True)
 	return appendToPcap
 
-def disectPackets(string pcap):
-
 	
 
 
