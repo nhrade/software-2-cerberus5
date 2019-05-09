@@ -2,8 +2,14 @@
 from scapySniffer import proxyOn
 from scapy.all import *
 
+
+def unpackPCAP(file_):
+    packets = rdpcap(file_)
+    print(type(packets))
+
 capture = False
-unpackPCAP()
+unpackPCAP('2019-05-08_22.40.pcap')
+
 while True:
 	inp = input("input if capture \n")
 	print(inp)
@@ -14,10 +20,3 @@ while True:
 	print(capture)
 	proxyOn(capture)
 
-
-
-def unpackPCAP(file_):
-    packets = rdpcap(file_)
-    print(type(packets))
-
-def retrievePacket():
