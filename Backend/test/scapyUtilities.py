@@ -1,12 +1,39 @@
 #!/usr/bin/env python3
 from skyplabs import *
 
-def unpackPCAP(file_): 
+def unpackPCAP(file_):
 	packets = rdpcap(file_)
-	print(type(packets))
+	layerList=list()
+	layerContentList=list()
+	for packet in packets.res:
+		r=list(dissectLayers(packet))
+		":".join(str(r))
+		c=str(packet.summary())
 
-capture = False
-#unpackPCAP('2019-05-08_22.40.pcap')
+		layerList.append(r)
+		layerContentList.append(c)
+	"""test code for verification of list of lists of layers in packets
+	for pack in layerList:
+		print(pack)
+	for data in layerContentList:
+		print(data)
+	"""
+	return layerList, layerContentList
+
+def dissectLayers(packet):
+	yield packet.name
+	while packet.payload:
+		packet = packet.payload
+		yield packet.name
+
+def dissectData(packet):
+    yield packet
+    while packet.payload:
+        packet = packet.payload
+        yield packet
+    
+unpackPCAP('2019-05-09_17.31.pcap')
+
 filter__ = ""
 sniffer = Sniffer(filter__)
 
