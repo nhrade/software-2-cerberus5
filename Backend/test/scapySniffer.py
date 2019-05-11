@@ -1,61 +1,48 @@
-#!/usr/bin/env python3
-#https://github.com/secdev/scapy/issues/989 guedou and HenninhCash
-from scapy.all import*
-import select
+#https://blog.skyplabs.net/2018/03/01/python-sniffing-inside-a-thread-with-scapy/
+from scapy.all import *
+from threading import Thread, Event
+from time import sleep
 import datetime
-import time, threading
 
-# s = conf.L2listen()
-#capture = False
-now = datetime.datetime.now()
-captureFilter = ""
-capture = threading.Event()
-#file_ = ""
 
-def proxyOn(capture):
-	print("At ProxyOn")
-	if capture:
-		file_ = str(now.strftime("%Y-%m-%d_%H.%M"))+'.pcap'
-		f = open(file_, 'w').close
-		captureLiveTraffic(capture, file_)
-		return
-	else:
-		return
-def captureLiveTraffic(capture, file_):
-	print("Capturing Packet" + file_  +'\n')
-	print(capture)
+class Sniffer(Thread):
+	def __init__(self, filter_=""):#interface="eth0",
+		super().__init__()
+
+		self.daemon = True
+		self.socket = None
+		#self.interface = interface
+		self.filter_ = filter_
+		self.stop_sniffer = Event()
+
+	def run(self):
+		now = datetime.datetime.now()
+		file__ = str(now.strftime("%Y-%m-%d_%H.%M.%S"))+'.pcap'
+		open(file__, 'w').close
+		print(file__)
+		self.socket = conf.L2listen(
+		type=ETH_P_ALL,
+			#iface=self.interface,
+			filter=self.filter_
+		)
+
+		sniff(
+			opened_socket=self.socket,
+			prn=self.print_packet(file__) ,
+			stop_filter=self.should_stop_sniffer
+		)
+
+	def join(self, timeout=None):
+		self.stop_sniffer.set()
+		super().join(timeout)
 	
+	def should_stop_sniffer(self, packet):
+		return self.stop_sniffer.isSet()
 
-	if capture:
-		#packets = 
-		sniff(filter = captureFilter,prn = recieveFileName(file_))#, stop_filter=lambda p: capture.is_set())
-	#packets = None
-	return
-
-def recieveFileName(file_ : str):
-	print(file_ + 'file recieved\n')
-	def appendToPcap(capturedPacket):
-		print('Writing To PCAP' + file_)
-		capturedPacket.show()
-		wrpcap(file_, capturedPacket, append = True)
-	return appendToPcap
-
-	
-
-
-
-
-#t = threading.Thread(target=captureLiveTraffic, args=(capture,))
-#t.start()
-
-#time.sleep(3)
-#print("Shutdown")
-#capture.set()
-
-#while True:
-#	t.join(2)
-#	if t.is_alive():
-#		print("Still Running")
-#	else:
-#		break
-#print("shutdown")
+	def print_packet(self, file__ : str):
+		print(file__ + 'file recieved\n')
+		def appendToPcap(capturedPacket):
+			print('Writing To PCAP' + file__)
+			capturedPacket.show()
+			wrpcap(file__, capturedPacket, append = True)
+		return appendToPcap

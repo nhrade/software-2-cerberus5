@@ -1,40 +1,33 @@
 #!/usr/bin/env python3
-from scapySniffer import proxyOn
-from scapy.all import *
+from skyplabs import *
 
-
-def unpackPCAP(file_):
+def unpackPCAP(file_): 
 	packets = rdpcap(file_)
 	print(type(packets))
-	
-	for p in packets:
-		print(p.summary())
-#		getPacketLayers(p)
-	#print(packets)
-
-def getPacketLayers(packet):
-	print(str(packet.getlayer()))
-    
-
-
 
 capture = False
-unpackPCAP('2019-05-09_17.31.pcap')
-sniffer = Sniffer()
+#unpackPCAP('2019-05-08_22.40.pcap')
+filter__ = ""
+sniffer = Sniffer(filter__)
+
+def addFilter(filter_):
+	global sniffer, filter__
+	filter__ = filter_
+	sniffer = Sniffer(filter__)
 
 def toggleTheSniffer(capture):
 	print(capture)
 	global sniffer
-	if capture:
+	if capture and not sniffer.isAlive():
 		print("[*] Start sniffing...")
 		sniffer.start()
 	else:
 		print("[*] Stop sniffing")
-		sniffer.join(2.0)
-
+		if sniffer.isAlive():
+			sniffer.join(2.0)
 		if sniffer.isAlive():
 			sniffer.socket.close()
-		sniffer = Sniffer()
+		sniffer = Sniffer(filter__)
 
 
 while True:
@@ -42,7 +35,11 @@ while True:
 	print(inp)
 	if inp == "yes":
 		capture = True
+	elif inp == "filter":
+		filter_ = input("enter filter \n")
+		addFilter(filter_)
 	else:
 		capture = False
 	print(capture)
 	#proxyOn(capture)
+	toggleTheSniffer(capture)
