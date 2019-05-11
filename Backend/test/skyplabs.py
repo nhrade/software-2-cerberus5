@@ -6,7 +6,7 @@ import datetime
 
 
 class Sniffer(Thread):
-	def __init__(self, interface="eth0", filter_="ip"):
+	def __init__(self, filter_="ip", interface="eth0"):
 		super().__init__()
 
 		self.daemon = True
