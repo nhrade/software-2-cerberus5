@@ -1,22 +1,28 @@
+from PacketModifier import *
+from Fuzzer import *
+from scapy.all import *
+import sys
+import afl
+
 '''
 FuzzingManager.py
+Manages the fuzzing of packets and is external interface to other subsystems
 '''
-
-from pypacker.layer3.ip import IP
-from pypacker.layer3.icmp import ICMP
-
 class FuzzingManager:
 
+    def __init__(self):
+        self.packetModifier = PacketModifier()
+        self.fuzzer = Fuzzer('afl_input/', 'afl_output/')
+        afl.init()
+
     def generateFuzzValue(self, field, vrange):
-        pass
+        v = self.fuzzer.generateValue()
+        IP(dst=v[1], src=v[1])
+        os._exit(0)
 
     def generateFuzzedPacket(self, packet, field, vrange, value):
-        return IP(src_s="127.0.0.1", dst_s="192.168.0.1", p=1) + \
-             ICMP(type=8) + \
-             ICMP.Echo(id=123, seq=1, body_bytes=b"foobar")
+        pass
 
-
-
-fm = FuzzingManager()
-ip = fm.generateFuzzedPacket(None, None, None, None)
-print("%s" % ip)
+if __name__ == '__main__':
+    fm = FuzzingManager()
+    fv = fm.generateFuzzValue('dst', (1, 10))
