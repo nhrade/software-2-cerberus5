@@ -14,3 +14,14 @@ while True:
 
    # print output on terminal
    print s.recvfrom(65565)
+   
+def fields(data):
+  storeobj=data
+  storeobj=struct.unpack("!6s6sH",storeobj)
+  destination_mac=binascii.hexlify(storeobj[0])
+  source_mac=binascii.hexlify(storeobj[1])
+  eth_protocol=storeobj[2]
+  data={"Destination Mac":destination_mac,
+  "Source Mac":source_mac,
+  "Protocol":eth_protocol}
+  return data
