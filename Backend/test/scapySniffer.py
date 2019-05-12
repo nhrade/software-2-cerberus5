@@ -46,3 +46,4 @@ class Sniffer(Thread):
 			capturedPacket.show()
 			wrpcap(file__, capturedPacket, append = True)
 		return appendToPcap
+

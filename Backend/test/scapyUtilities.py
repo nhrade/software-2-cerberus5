@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from skyplabs import *
+from scapySniffer import *
 
 def unpackPCAP(file_):
 	packets = rdpcap(file_)
@@ -32,15 +32,19 @@ def dissectData(packet):
         packet = packet.payload
         yield packet
     
-unpackPCAP('2019-05-09_17.31.pcap')
+#unpackPCAP('2019-05-09_17.31.pcap')
 
 filter__ = ""
 sniffer = Sniffer(filter__)
 
 def addFilter(filter_):
+	print("At Filter")
 	global sniffer, filter__
+	if sniffer.isAlive():
+		return
 	filter__ = filter_
 	sniffer = Sniffer(filter__)
+	print("modified filter")
 
 def toggleTheSniffer(capture):
 	print(capture)
@@ -55,18 +59,7 @@ def toggleTheSniffer(capture):
 		if sniffer.isAlive():
 			sniffer.socket.close()
 		sniffer = Sniffer(filter__)
+		
+def getFilter()
+	return filter__
 
-
-while True:
-	inp = input("input if capture \n")
-	print(inp)
-	if inp == "yes":
-		capture = True
-	elif inp == "filter":
-		filter_ = input("enter filter \n")
-		addFilter(filter_)
-	else:
-		capture = False
-	print(capture)
-	#proxyOn(capture)
-	toggleTheSniffer(capture)
