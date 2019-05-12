@@ -1,36 +1,14 @@
 #!/usr/bin/env python3
 from scapySniffer import *
+from scapy.all import *
 
-#unpacks a PCAP file into a list of lists of layers (packets)
+#unpacks a PCAP file into a list of lists of layers (packets). Returns list of Scapy packets and list of packet data for easy printing
 def unpackPCAP(file_):
 	packets = rdpcap(file_)
-
 	pkts = list()
+	
 	for packet in packets.res:
-		l=list(dissectLayers(packet))
-		":".join(str(l))
-		c=str(packet.show)
-
-		layers = dict()
-		for layer in l:
-			fieldsAndValues = dict()
-			try:
-				for field in packet[layer].fields_desc:
-					#print(field.name)
-					if field.name== 'qd':
-					#		print(str(packet['DNS'].qd.qname))
-							val = str(packet['DNS'].qd.qname)
-					else:
-					#		print(getattr(packet[layer], field.name)) 
-						val = getattr(packet[layer], field.name)
-					fieldsAndValues[field.name] = val
-			except:
-				continue
-				
-			layers[layer] = fieldsAndValues
-
-		print(packet.show())
-		pkts.append(layers)
+		pkts.append(dissectPacket(packet))
 
 	return packets.res, pkts
 
@@ -52,6 +30,34 @@ def binaryDump(packet):
 #edits the field of a packet layer
 def editFields(packet,layer,field, value):
 	setattr(packet[layer], field, value)
+# dissects Packets and returns a list of the layer dictionaries that contain fields and field values.	
+def dissectPacket(packet):
+	packetData = list()
+	l=list(dissectLayers(packet))
+	":".join(str(l))
+
+	layers = dict()
+	for layer in l:
+		fieldsAndValues = dict()
+		try:
+			for field in packet[layer].fields_desc:
+				#print(field.name)
+				if field.name== 'qd':
+				#		print(str(packet['DNS'].qd.qname))
+					val = str(packet['DNS'].qd.qname)
+				else:
+				#		print(getattr(packet[layer], field.name)) 
+					val = getattr(packet[layer], field.name)
+				fieldsAndValues[field.name] = val
+		except:
+			continue
+			
+		layers[layer] = fieldsAndValues
+
+	#print(packet.show())
+	packetData.append(layers)
+	return packetData
+
     
 #unpackPCAP('2019-05-09_17.31.pcap')
 
