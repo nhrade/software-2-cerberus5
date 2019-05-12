@@ -1,36 +1,57 @@
 #!/usr/bin/env python3
 from scapySniffer import *
 
+#unpacks a PCAP file into a list of lists of layers (packets)
 def unpackPCAP(file_):
 	packets = rdpcap(file_)
-	layerList=list()
-	layerContentList=list()
+
+	pkts = list()
 	for packet in packets.res:
-		r=list(dissectLayers(packet))
-		":".join(str(r))
-		c=str(packet.summary())
+		l=list(dissectLayers(packet))
+		":".join(str(l))
+		c=str(packet.show)
 
-		layerList.append(r)
-		layerContentList.append(c)
-	"""test code for verification of list of lists of layers in packets
-	for pack in layerList:
-		print(pack)
-	for data in layerContentList:
-		print(data)
-	"""
-	return layerList, layerContentList
+		layers = dict()
+		for layer in l:
+			fieldsAndValues = dict()
+			try:
+				for field in packet[layer].fields_desc:
+					#print(field.name)
+					if field.name== 'qd':
+					#		print(str(packet['DNS'].qd.qname))
+							val = str(packet['DNS'].qd.qname)
+					else:
+					#		print(getattr(packet[layer], field.name)) 
+						val = getattr(packet[layer], field.name)
+					fieldsAndValues[field.name] = val
+			except:
+				continue
+				
+			layers[layer] = fieldsAndValues
 
+		print(packet.show())
+		pkts.append(layers)
+
+	return packets.res, pkts
+
+#extracts the different layers within a packet by traversing each packet's contents
 def dissectLayers(packet):
 	yield packet.name
 	while packet.payload:
 		packet = packet.payload
 		yield packet.name
 
-def dissectData(packet):
-    yield packet
-    while packet.payload:
-        packet = packet.payload
-        yield packet
+#produces packet in hexidecimal format
+def hexDump(packet):
+	return hexdump(packet)
+
+#produces packet in "binary" format
+def binaryDump(packet):
+    return raw(packet)
+
+#edits the field of a packet layer
+def editFields(packet,layer,field, value):
+	setattr(packet[layer], field, value)
     
 #unpackPCAP('2019-05-09_17.31.pcap')
 
