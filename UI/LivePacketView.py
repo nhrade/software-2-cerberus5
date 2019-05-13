@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QWidget
 
 class Ui_LivePacketView(object):
-        def setupUi(self, Form):
+    def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(981, 842)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(Form)
