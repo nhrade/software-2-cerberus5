@@ -267,14 +267,13 @@ class Ui_PacketFromPCAPView(object):
         self.FieldValuesCol_2.setUniformRowHeights(True)
         self.FieldValuesCol_2.setItemsExpandable(True)
         self.FieldValuesCol_2.setObjectName("FieldValuesCol_2")
-        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
         font = QtGui.QFont()
         font.setPointSize(10)
+        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
         item_0.setFont(0, font)
-        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
-        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
-        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
-        item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
+        
+        self.intializeFieldArea(self.FieldValuesCol_2, 20)
+        
         self.gridLayout_16.addWidget(self.FieldValuesCol_2, 0, 0, 1, 1)
         self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_5)
         self.gridLayout_8.addWidget(self.scrollArea_4, 0, 0, 5, 3)
@@ -420,12 +419,26 @@ class Ui_PacketFromPCAPView(object):
 
     def initializeTable(self, tree, items, subitems):
         for i in range(items):
-            item_0 = self.addDropDownMumboJumbo(tree)
+            item_0 = self.addTreeSubItem(tree)
             for j in range(subitems):
-                item_1 = self.addDropDownMumboJumbo(item_0)
+                item_1 = self.addTreeSubItem(item_0)
+
+    def intializeFieldArea(self, tree, rows):
+        for i in range(rows):
+            item_0 = self.addTreeSubItem(tree)
+
+    def clearTables(self):
+        clearTable(self.treeWidget)
+        clearTable(self.treeWidget_2)
+        clearTable(self.treeWidget_3)
+
+    def clearTable(self, tree):
+        for i in range(tree.topLevelItemCount()):
+            tree.topLevelItem(i).setText(0,"")
+            for j in range(tree.topLevelItem(i).childCount()):
+                tree.topLevelItem(i).child(j).setText(0, "")
         
-        
-    def addDropDownMumboJumbo(self,parent):
+    def addTreeSubItem(self,parent):
         return QtWidgets.QTreeWidgetItem(parent)
 
     def openPCAP(self):
