@@ -1,5 +1,4 @@
 import os
-import subprocess
 import sys
 
 class hook:
@@ -18,9 +17,14 @@ class hook:
 		print("Path: " + self.path + "\n")
 	
 	def executeHook(self):
+		os.system('python self.path');
 		
-	def updateHookSequence(self):
+	def updateHookSequence(self, number):
+		self.sequenceNumber = number
 	
-	def updateHookSequence(self):
-		
+	def updateHookActivationState(self):
+		if self.status = true
+			self.status = false
+		    else:
+			self.status = true
 		
