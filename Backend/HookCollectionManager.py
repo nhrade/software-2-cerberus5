@@ -10,7 +10,7 @@ class HookCollectionManager(QtWidgets.MainWindow, QPushButton):
 
 	def __init__(self):
 		super(MyWindow, self), __init__()
-		uic.loadUi('HookCollectionView.ui", self)
+		uic.loadUi("HookCollectionView.ui", self)
 		
 		self.pushButton.clicked.connect(self.on_open1)
 		self.pushButton_3.clicked.connect(self.on_open3)
