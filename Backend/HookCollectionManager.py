@@ -1,9 +1,7 @@
 import os
 import sys
-import hook
-import HookCollection
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-from PyQt5.QtWidgets import QPushButton
+from PyQt5.QtWidgets import QPushButton, QLabel, QLineEdit
 
 import hook
 import HookCollection
@@ -18,8 +16,6 @@ class HookCollectionManager(QtWidgets.MainWindow, QPushButton):
 		self.pushButton_3.clicked.connect(self.on_open3)
 		self.pushButton_2.clicked.connect(self.on_open1)
 		self.pushButton_4.clicked.connect(self.on_open4)
-		self.pushButton_45.clicked.connect(self.on_open45)
-		self.pushButton_46.clicked.connect(self.on_open46)
 		
 		self.comboBox_21.clicked.connect(self.on_open21)
 		self.comboBox_21.clicked.connect(self.on_open22)
@@ -36,14 +32,6 @@ class HookCollectionManager(QtWidgets.MainWindow, QPushButton):
 		self.myOtherWindow = OtherWindow4()
 		self.myOtherWindow = show();
 	
-	def on_open45(self):	
-		self.myOtherWindow = OtherWindow45()
-		self.myOtherWindow = show();
-	
-	def on_open46(self):
-		self.myOtherWindow = OtherWindow46()
-		self.myOtherWindow = show();
-	
 	def on_open21(self):
 		self.myOtherWindow = OtherWindow21()
 		self.myOtherWindow = show();
@@ -55,11 +43,42 @@ class HookCollectionManager(QtWidgets.MainWindow, QPushButton):
 class OtherWindow1(QtWidgets.QtMainWindow, QPushButton):
 	def __init__(self):
 		super(OtherWindow,self),__init__()
-		uic.loadUi("CreateEditHook.ui",self).show()
+		uic.loadUi("CreateEditHookCollection.ui",self).show()
+		
+		self.statusComboBox.addItem("Enabled")
+		self.statusComboBox.addItem("Disabled")
+		self.saveButton.clicked.connect(self.clickMethod)
+		self.cancelButton.clicked.connect(self.on_openHome)
+	
+	def clickMethod(self):
+		selection = True
+		if self.statusComboBox.currentText() == "Disabled":
+			self.myOtherWindow = HookCollectionDisabled()
+			self.myOtherWindow = show();
+			selection = False
+		global hookC = HookCollection(self.hookCollectionNameEdit.text(), self.executionSequenceEdit.text(), selection, self.descriptionEdit.text(), 0, ListOfHooks = [])
+		return hookC
+	
+	def executionStatus(self)
 
+	def homeMethod(self):
+		self.myOtherWindow = HookCollectionManager()
+		self.myOtherWindow = show();
+		
 class OtherWindow3(QtWidgets.QtMainWindow, QPushButton):
 	def __init__(self):
 		super(OtherWindow,self),__init__()
 		uic.loadUi("CreateEditHook.ui",self).show()
+		
+class HookCollectionDisabled(self):
+	def __init__(self):
+		super(OtherWindow,self),__init__()
+		uic.loadUi("HookCollectionExecutionSequenceError.ui",self).show()
+		
+		self.saveButton.clicked.connect(self.backMethod)
+		
+	def backMethod(self):
+		self.myOtherWindow = HookCollectionManager()
+		self.myOtherWindow = show();
 	
 
