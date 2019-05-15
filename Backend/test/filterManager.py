@@ -16,7 +16,9 @@ def toggleInterception(intercept):
 	global interceptor, savedQueue
 	
 	if intercept and not interceptor.isAlive():
-		savedQueue = None
+		if not savedQueue.empty():
+			savedQueue.queue.clear()
+			savedQueue = None
 		interceptor = filterInterception.Interceptor(scapyUtilities.getFilter(), maxLength)
 		os.system(saveIPTables)
 		os.system(interceptorIPTables)
@@ -39,8 +41,14 @@ def setQueueLength(size):
 	global maxLength, interceptor
 	maxLength = size
 	interceptor = filterInterception.Interceptor(scapyUtlities.getFilter(), maxLength)
+
+def forwardPacket(packet):
+	file_ = "livePCAP.pcap"
+	open(file_, 'w').close()
+	interceptor.forward_packet(file_, packet)
+
 	
-def forwardPacket(num=1):
+def forwardPacketList(num=1):
 	file_ = "livePacket.pcap"
 	open(file_, 'w').close()
 	interceptor.forward(file_,num,savedQueue)

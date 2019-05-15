@@ -1,3 +1,5 @@
+import iptc
+
 '''
 hook3.py
 @author Noah
@@ -8,7 +10,7 @@ class Hook3:
     def __init__(self):
         self.hookName = 'hook3'
 
-    def run(self, packets):
-        for packet in packets:
-            if 'TCP' in packet:
-                packets.remove(packet)
+    def run(self, packet):
+        rule = iptc.Rule()
+        rule.protocol = 'tcp'
+        rule.create_target('DROP')
