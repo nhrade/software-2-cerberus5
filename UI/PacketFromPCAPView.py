@@ -5,14 +5,19 @@
 # Created by: PyQt5 UI code generator 5.12
 #
 # WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
+import scapyUtilities, scapySniffer
 
 
-class Ui_Form(object):
+class Ui_PacketFromPCAPView(object):
     def setupUi(self, Form):
+        self.pktsData = None
+        self.packets = None
         Form.setObjectName("Form")
         Form.resize(910, 911)
+        self.Form = Form
         self.gridLayout_10 = QtWidgets.QGridLayout(Form)
         self.gridLayout_10.setObjectName("gridLayout_10")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -35,6 +40,7 @@ class Ui_Form(object):
         self.horizontalLayout_3.addLayout(self.gridLayout_2)
         self.OpenButton_2 = QtWidgets.QPushButton(self.PcapFile)
         self.OpenButton_2.setObjectName("OpenButton_2")
+        self.OpenButton_2.clicked.connect(self.openPCAP)
         self.horizontalLayout_3.addWidget(self.OpenButton_2)
         self.CancelButton_2 = QtWidgets.QPushButton(self.PcapFile)
         self.CancelButton_2.setObjectName("CancelButton_2")
@@ -75,10 +81,8 @@ class Ui_Form(object):
         self.gridLayout_19.setObjectName("gridLayout_19")
         self.treeWidget = QtWidgets.QTreeWidget(self.scrollAreaWidgetContents)
         self.treeWidget.setObjectName("treeWidget")
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
+        self.initializeTable(self.treeWidget, 3000, 10)
+
         self.gridLayout_19.addWidget(self.treeWidget, 0, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout_11.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -97,10 +101,8 @@ class Ui_Form(object):
         self.gridLayout_18.setObjectName("gridLayout_18")
         self.treeWidget_2 = QtWidgets.QTreeWidget(self.scrollAreaWidgetContents_2)
         self.treeWidget_2.setObjectName("treeWidget_2")
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget_2)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget_2)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
+        self.initializeTable(self.treeWidget_2, 3000, 1)
+        
         self.gridLayout_18.addWidget(self.treeWidget_2, 0, 0, 1, 1)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.gridLayout_12.addWidget(self.scrollArea_2, 0, 0, 1, 1)
@@ -119,10 +121,8 @@ class Ui_Form(object):
         self.gridLayout_17.setObjectName("gridLayout_17")
         self.treeWidget_3 = QtWidgets.QTreeWidget(self.scrollAreaWidgetContents_3)
         self.treeWidget_3.setObjectName("treeWidget_3")
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget_3)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget_3)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
+        self.initializeTable(self.treeWidget_3, 3000, 1)
+        
         self.gridLayout_17.addWidget(self.treeWidget_3, 0, 0, 1, 1)
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
         self.gridLayout_13.addWidget(self.scrollArea_3, 0, 0, 1, 1)
@@ -284,7 +284,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.PacketView_2.setCurrentIndex(0)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        #QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -299,29 +299,72 @@ class Ui_Form(object):
         self.treeWidget.headerItem().setText(0, _translate("Form", "Dissected Packets"))
         __sortingEnabled = self.treeWidget.isSortingEnabled()
         self.treeWidget.setSortingEnabled(False)
-        self.treeWidget.topLevelItem(0).setText(0, _translate("Form", "frame 249"))
-        self.treeWidget.topLevelItem(0).child(0).setText(0, _translate("Form", "DNS: query = utep.edu"))
-        self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "frame 250"))
-        self.treeWidget.topLevelItem(1).child(0).setText(0, _translate("Form", "IP: src = 10.0.0.2"))
-        self.treeWidget.setSortingEnabled(__sortingEnabled)
+        if self.pktsData ==None:
+            self.treeWidget.topLevelItem(0).setText(0, _translate("Form", "frame 249"))
+            self.treeWidget.topLevelItem(0).child(0).setText(0, _translate("Form", "DNS: query = utep.edu"))
+            self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "frame 250"))
+            self.treeWidget.topLevelItem(1).child(0).setText(0, _translate("Form", "IP: src = 10.0.0.2"))
+            self.treeWidget.setSortingEnabled(__sortingEnabled)
+        else:
+            for i, packet in enumerate(self.pktsData):
+            #rootItem = QtWidgets.QTreeWidgetItem()
+            #rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
+                l=list(scapyUtilities.dissectLayers(self.packets[i]))
+                ":".join(str(l))
+                self.treeWidget.topLevelItem(i).setText(0, 'frame %s: %s'%(i, str(l)))
+            #print('frame %s: %s'%(i, str(l)))
+            #rootItem.sceneSG={}
+            #rootItem.sceneSG['code']='nextSceneFilename'
+                for layer in packet:
+                    #print(type(layer))
+                    for j, (layername, layerInfo) in enumerate(layer.items()):
+                        #childItem = QtWidgets.QTreeWidgetItem(rootItem)
+                        #childItem.setFlags(rootItem.flags() | )
+                        #childItem.sceneSG={}     
+                        self.treeWidget.topLevelItem(i).child(j).setText(0, '%s: %s' %(layername, str(layerInfo)))
+                        self.treeWidget.topLevelItem(i).child(j).setFlags(self.treeWidget.topLevelItem(i).flags() | QtCore.Qt.ItemIsEditable)
+
+            #rootItem.setData(100, 77, QtCore.Qt.UserRole )
+        
         self.PacketView_2.setTabText(self.PacketView_2.indexOf(self.Dissected_2), _translate("Form", "Dissected"))
         self.treeWidget_2.headerItem().setText(0, _translate("Form", "Binary Packets"))
         __sortingEnabled = self.treeWidget_2.isSortingEnabled()
         self.treeWidget_2.setSortingEnabled(False)
-        self.treeWidget_2.topLevelItem(0).setText(0, _translate("Form", "frame 247"))
-        self.treeWidget_2.topLevelItem(0).child(0).setText(0, _translate("Form", "binary dump"))
-        self.treeWidget_2.topLevelItem(1).setText(0, _translate("Form", "frame 248"))
-        self.treeWidget_2.topLevelItem(1).child(0).setText(0, _translate("Form", "binary dump"))
-        self.treeWidget_2.setSortingEnabled(__sortingEnabled)
+        if self.pktsData == None:
+            self.treeWidget_2.topLevelItem(0).setText(0, _translate("Form", "frame 247"))
+            self.treeWidget_2.topLevelItem(0).child(0).setText(0, _translate("Form", "binary dump"))
+            self.treeWidget_2.topLevelItem(1).setText(0, _translate("Form", "frame 248"))
+            self.treeWidget_2.topLevelItem(1).child(0).setText(0, _translate("Form", "binary dump"))
+            self.treeWidget_2.setSortingEnabled(__sortingEnabled)
+        else:
+            for i, packet in enumerate(self.pktsData):
+            #rootItem = QtWidgets.QTreeWidgetItem()
+            #rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
+                l=list(scapyUtilities.dissectLayers(self.packets[i]))
+                ":".join(str(l))
+                self.treeWidget_2.topLevelItem(i).setText(0, 'frame %s: %s'%(i, str(l)))
+                self.treeWidget_2.topLevelItem(i).child(0).setText(0, str(scapyUtilities.binaryDump(self.packets[i])))
+
+
         self.PacketView_2.setTabText(self.PacketView_2.indexOf(self.Binary_2), _translate("Form", "Binary"))
         self.treeWidget_3.headerItem().setText(0, _translate("Form", "Hex Packets"))
         __sortingEnabled = self.treeWidget_3.isSortingEnabled()
         self.treeWidget_3.setSortingEnabled(False)
-        self.treeWidget_3.topLevelItem(0).setText(0, _translate("Form", "frame 245"))
-        self.treeWidget_3.topLevelItem(0).child(0).setText(0, _translate("Form", "hex dump"))
-        self.treeWidget_3.topLevelItem(1).setText(0, _translate("Form", "frame 246"))
-        self.treeWidget_3.topLevelItem(1).child(0).setText(0, _translate("Form", "hex dump"))
-        self.treeWidget_3.setSortingEnabled(__sortingEnabled)
+        if self.pktsData == None:
+            self.treeWidget_3.topLevelItem(0).setText(0, _translate("Form", "frame 245"))
+            self.treeWidget_3.topLevelItem(0).child(0).setText(0, _translate("Form", "hex dump"))
+            self.treeWidget_3.topLevelItem(1).setText(0, _translate("Form", "frame 246"))
+            self.treeWidget_3.topLevelItem(1).child(0).setText(0, _translate("Form", "hex dump"))
+            self.treeWidget_3.setSortingEnabled(__sortingEnabled)
+        else:
+            for i, packet in enumerate(self.pktsData):
+            #rootItem = QtWidgets.QTreeWidgetItem()
+            #rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
+                l=list(scapyUtilities.dissectLayers(self.packets[i]))
+                ":".join(str(l))
+                self.treeWidget_3.topLevelItem(i).setText(0, 'frame %s: %s'%(i, str(l)))
+                self.treeWidget_3.topLevelItem(i).child(0).setText(0, str(scapyUtilities.hexDump(self.packets[i])))
+
         self.PacketView_2.setTabText(self.PacketView_2.indexOf(self.HEX_2), _translate("Form", "HEX"))
         self.CapturFilterArea.setTitle(_translate("Form", "Capture Filter"))
         self.FilterLabel_2.setText(_translate("Form", "Filter"))
@@ -375,4 +418,18 @@ class Ui_Form(object):
         self.FieldValuesCol_2.topLevelItem(4).setText(2, _translate("Form", "2"))
         self.FieldValuesCol_2.setSortingEnabled(__sortingEnabled)
 
+    def initializeTable(self, tree, items, subitems):
+        for i in range(items):
+            item_0 = self.addDropDownMumboJumbo(tree)
+            for j in range(subitems):
+                item_1 = self.addDropDownMumboJumbo(item_0)
+        
+        
+    def addDropDownMumboJumbo(self,parent):
+        return QtWidgets.QTreeWidgetItem(parent)
 
+    def openPCAP(self):
+        pcap = self.PCAPLocation_2.toPlainText()
+        self.packets, self.pktsData = scapyUtilities.unpackPCAP(pcap)
+        print('Imported PCAP')
+        self.retranslateUi(self.Form)
