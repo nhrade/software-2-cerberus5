@@ -6,22 +6,22 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>924</width>
-    <height>652</height>
+    <width>910</width>
+    <height>911</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout_10">
+   <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QGroupBox" name="PcapFile">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>80</height>
+         <height>55</height>
         </size>
        </property>
        <property name="title">
@@ -70,19 +70,31 @@
      </item>
      <item row="2" column="0">
       <widget class="QGroupBox" name="PacketArea">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>258</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777213</height>
+        </size>
+       </property>
        <property name="title">
         <string>Packet Area</string>
        </property>
        <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="2">
+         <layout class="QGridLayout" name="gridLayout_6"/>
+        </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="ClearButton_4">
           <property name="text">
            <string>Clear</string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="2">
-         <layout class="QGridLayout" name="gridLayout_6"/>
         </item>
         <item row="0" column="0">
          <widget class="QTabWidget" name="PacketView_2">
@@ -93,16 +105,181 @@
            <attribute name="title">
             <string>Dissected</string>
            </attribute>
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="0" column="0">
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustToContents</enum>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>769</width>
+                 <height>162</height>
+                </rect>
+               </property>
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>769</width>
+                 <height>78</height>
+                </size>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_19">
+                <item row="0" column="0">
+                 <widget class="QTreeWidget" name="treeWidget">
+                  <column>
+                   <property name="text">
+                    <string>Dissected Packets</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string>frame 249</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>DNS: query = utep.edu</string>
+                    </property>
+                   </item>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>frame 250</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>IP: src = 10.0.0.2</string>
+                    </property>
+                   </item>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="Binary_2">
            <attribute name="title">
             <string>Binary</string>
            </attribute>
+           <layout class="QGridLayout" name="gridLayout_12">
+            <item row="0" column="0">
+             <widget class="QScrollArea" name="scrollArea_2">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_2">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>755</width>
+                 <height>179</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_18">
+                <item row="0" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_2">
+                  <column>
+                   <property name="text">
+                    <string>Binary Packets</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string>frame 247</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>binary dump</string>
+                    </property>
+                   </item>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>frame 248</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>binary dump</string>
+                    </property>
+                   </item>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="HEX_2">
            <attribute name="title">
             <string>HEX</string>
            </attribute>
+           <layout class="QGridLayout" name="gridLayout_13">
+            <item row="0" column="0">
+             <widget class="QScrollArea" name="scrollArea_3">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_3">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>755</width>
+                 <height>179</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_17">
+                <item row="0" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_3">
+                  <column>
+                   <property name="text">
+                    <string>Hex Packets</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string>frame 245</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>hex dump</string>
+                    </property>
+                   </item>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>frame 246</string>
+                   </property>
+                   <item>
+                    <property name="text">
+                     <string>hex dump</string>
+                    </property>
+                   </item>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -114,7 +291,7 @@
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>80</height>
+         <height>65</height>
         </size>
        </property>
        <property name="title">
@@ -167,515 +344,7 @@
         <string/>
        </property>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="3" column="0">
-         <widget class="QGroupBox" name="groupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>300</height>
-           </size>
-          </property>
-          <property name="sizeIncrement">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Field Area</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="9" column="2">
-            <widget class="QPushButton" name="Forward_2">
-             <property name="text">
-              <string>Forward</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="1">
-            <widget class="QPushButton" name="SaveMod_2">
-             <property name="text">
-              <string>Save Modification</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="3">
-            <widget class="QPushButton" name="Drop_2">
-             <property name="text">
-              <string>Drop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBox_10">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QComboBox" name="comboBox_8">
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dissected</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hex</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Binary</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="checkBox_9">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1" rowspan="8" colspan="3">
-            <widget class="QTreeWidget" name="FieldValuesCol_2">
-             <property name="minimumSize">
-              <size>
-               <width>411</width>
-               <height>192</height>
-              </size>
-             </property>
-             <property name="sizeIncrement">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="indentation">
-              <number>10</number>
-             </property>
-             <property name="uniformRowHeights">
-              <bool>true</bool>
-             </property>
-             <property name="itemsExpandable">
-              <bool>true</bool>
-             </property>
-             <column>
-              <property name="text">
-               <string>Field Name</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Value</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Mask</string>
-              </property>
-             </column>
-             <item>
-              <property name="text">
-               <string>icmp.type</string>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>08</string>
-              </property>
-              <property name="text">
-               <string>0</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>icmp.code</string>
-              </property>
-              <property name="text">
-               <string>00</string>
-              </property>
-              <property name="text">
-               <string>0</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>icmp.checksum</string>
-              </property>
-              <property name="text">
-               <string>6861</string>
-              </property>
-              <property name="text">
-               <string>1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>icmp.ident</string>
-              </property>
-              <property name="text">
-               <string>809e</string>
-              </property>
-              <property name="text">
-               <string>0</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>icmp.seq</string>
-              </property>
-              <property name="text">
-               <string>0f00</string>
-              </property>
-              <property name="text">
-               <string>2</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="8" column="1" colspan="2">
-            <widget class="QLabel" name="label_2">
-             <property name="text">
-              <string>Field Nmae, value, and display format are editable fields</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QCheckBox" name="checkBox_6">
-             <property name="sizeIncrement">
-              <size>
-               <width>0</width>
-               <height>2</height>
-              </size>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_7">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="checkBox_8">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QComboBox" name="comboBox_10">
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dissected</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hex</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Binary</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="4">
-            <widget class="QComboBox" name="comboBox_9">
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dissected</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hex</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Binary</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QComboBox" name="comboBox_6">
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dissected</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hex</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Binary</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="5" column="4">
-            <widget class="QComboBox" name="comboBox_7">
-             <item>
-              <property name="text">
-               <string>Format</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Dissected</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Hex</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Binary</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label">
-             <property name="text">
-              <string>Display Format</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="3" column="3">
-         <widget class="QGroupBox" name="FuzzingField">
-          <property name="minimumSize">
-           <size>
-            <width>250</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>Fuzzing Area</string>
-          </property>
-          <widget class="QLabel" name="SelectedPacketLabel_2">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>50</y>
-             <width>111</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Selected Packet Name</string>
-           </property>
-          </widget>
-          <widget class="QPlainTextEdit" name="SelectedPackeInput_2">
-           <property name="geometry">
-            <rect>
-             <x>140</x>
-             <y>60</y>
-             <width>141</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="plainText">
-            <string>Selected Packet Name</string>
-           </property>
-          </widget>
-          <widget class="QGroupBox" name="SelectedFieldName_2">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>100</y>
-             <width>271</width>
-             <height>151</height>
-            </rect>
-           </property>
-           <property name="title">
-            <string/>
-           </property>
-           <widget class="QLabel" name="SelectedField_2">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>10</y>
-              <width>111</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Selected Field Name</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="ExpectedReturn_2">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>40</y>
-              <width>111</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Expected Return Type</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="Maximum_3">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>100</y>
-              <width>71</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Maximum</string>
-            </property>
-           </widget>
-           <widget class="QLabel" name="Minimum_3">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>70</y>
-              <width>81</width>
-              <height>16</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>Minimum</string>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="Selected_2">
-            <property name="geometry">
-             <rect>
-              <x>130</x>
-              <y>10</y>
-              <width>141</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="plainText">
-             <string>Selected Field Name</string>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="Expected_2">
-            <property name="geometry">
-             <rect>
-              <x>130</x>
-              <y>40</y>
-              <width>141</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="plainText">
-             <string>Expected Return Type</string>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="Minimum_4">
-            <property name="geometry">
-             <rect>
-              <x>130</x>
-              <y>70</y>
-              <width>141</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="plainText">
-             <string>Minimum</string>
-            </property>
-           </widget>
-           <widget class="QPlainTextEdit" name="Maximum_4">
-            <property name="geometry">
-             <rect>
-              <x>130</x>
-              <y>100</y>
-              <width>141</width>
-              <height>31</height>
-             </rect>
-            </property>
-            <property name="plainText">
-             <string>Maximum</string>
-            </property>
-           </widget>
-          </widget>
-          <widget class="QPushButton" name="Fuzz_2">
-           <property name="geometry">
-            <rect>
-             <x>100</x>
-             <y>260</y>
-             <width>75</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Fuzz</string>
-           </property>
-          </widget>
-          <widget class="QPushButton" name="Stop_2">
-           <property name="geometry">
-            <rect>
-             <x>190</x>
-             <y>260</y>
-             <width>75</width>
-             <height>23</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Stop</string>
-           </property>
-          </widget>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_3"/>
-        </item>
-        <item row="3" column="1">
+        <item row="4" column="1">
          <widget class="QGroupBox" name="Arrows">
           <property name="maximumSize">
            <size>
@@ -712,6 +381,322 @@
             <string>|+&gt;</string>
            </property>
           </widget>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QGroupBox" name="FuzzingField">
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Fuzzing Area</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_14">
+           <item row="0" column="0">
+            <widget class="QLabel" name="SelectedPacketLabel_2">
+             <property name="text">
+              <string>Selected Packet Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QPlainTextEdit" name="SelectedPackeInput_2">
+             <property name="plainText">
+              <string>Selected Packet Name</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="3">
+            <widget class="QGroupBox" name="SelectedFieldName_2">
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_15">
+              <item row="0" column="0">
+               <widget class="QLabel" name="SelectedField_2">
+                <property name="text">
+                 <string>Selected Field Name</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPlainTextEdit" name="Selected_2">
+                <property name="plainText">
+                 <string>Selected Field Name</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="ExpectedReturn_2">
+                <property name="text">
+                 <string>Expected Return Type</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPlainTextEdit" name="Expected_2">
+                <property name="plainText">
+                 <string>Expected Return Type</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="Minimum_3">
+                <property name="text">
+                 <string>Minimum</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPlainTextEdit" name="Minimum_4">
+                <property name="plainText">
+                 <string>Minimum</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="Maximum_3">
+                <property name="text">
+                 <string>Maximum</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QPlainTextEdit" name="Maximum_4">
+                <property name="plainText">
+                 <string>Maximum</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QPushButton" name="Fuzz_2">
+             <property name="text">
+              <string>Fuzz</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="Stop_2">
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="2">
+         <layout class="QGridLayout" name="gridLayout_3"/>
+        </item>
+        <item row="2" column="0" rowspan="3">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>150</height>
+           </size>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Field Area</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="6" column="0">
+            <widget class="QPushButton" name="SaveMod_2">
+             <property name="text">
+              <string>Save Modification</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QPushButton" name="Drop_2">
+             <property name="text">
+              <string>Drop</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="Forward_2">
+             <property name="text">
+              <string>Forward</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QComboBox" name="comboBox_8">
+             <item>
+              <property name="text">
+               <string>Format</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Dissected</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Hex</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Binary</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Display Format</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Field Name, value, and display format are editable fields</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" rowspan="5" colspan="3">
+            <widget class="QScrollArea" name="scrollArea_4">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents_5">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>348</width>
+                <height>324</height>
+               </rect>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_16">
+               <item row="0" column="0">
+                <widget class="QTreeWidget" name="FieldValuesCol_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>150</height>
+                  </size>
+                 </property>
+                 <property name="sizeIncrement">
+                  <size>
+                   <width>0</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="indentation">
+                  <number>10</number>
+                 </property>
+                 <property name="uniformRowHeights">
+                  <bool>true</bool>
+                 </property>
+                 <property name="itemsExpandable">
+                  <bool>true</bool>
+                 </property>
+                 <column>
+                  <property name="text">
+                   <string>Field Name</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Mask</string>
+                  </property>
+                 </column>
+                 <item>
+                  <property name="text">
+                   <string>icmp.type</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>08</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>icmp.code</string>
+                  </property>
+                  <property name="text">
+                   <string>00</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>icmp.checksum</string>
+                  </property>
+                  <property name="text">
+                   <string>6861</string>
+                  </property>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>icmp.ident</string>
+                  </property>
+                  <property name="text">
+                   <string>809e</string>
+                  </property>
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>icmp.seq</string>
+                  </property>
+                  <property name="text">
+                   <string>0f00</string>
+                  </property>
+                  <property name="text">
+                   <string>2</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
