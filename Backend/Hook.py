@@ -1,7 +1,10 @@
 import os
 import sys
 
-class hook:
+'''
+Hook.py
+'''
+class Hook:
 	def __init__(self, name, sequenceNumber, status, description, path):
         self.name = name
         self.sequenceNumber = sequenceNumber
