@@ -57,15 +57,14 @@ class Ui_PacketFromPCAPView(object):
         item_1 = QtWidgets.QTreeWidgetItem(item_0)
         item_0 = QtWidgets.QTreeWidgetItem(self.treeWidget)
         item_1 = QtWidgets.QTreeWidgetItem(item_0)
-<<<<<<< HEAD
+
         item_1 = QtWidgets.QTreeWidgetItem(item_0)
         for i in range(2):
             item_0 = self.addDropDownMumboJumbo(self.treeWidget)
             item_1 = self.addDropDownMumboJumbo(item_0)
             item_1 = self.addDropDownMumboJumbo(item_0)
 
-=======
->>>>>>> 4bc1659acff2391f05aad74e7d466a2641c221f2
+
         self.PacketView_2.addTab(self.Dissected_2, "")
         self.Binary_2 = QtWidgets.QWidget()
         self.Binary_2.setObjectName("Binary_2")
@@ -300,7 +299,7 @@ class Ui_PacketFromPCAPView(object):
         self.treeWidget.topLevelItem(0).child(1).setText(0, _translate("Form", "DNS"))
         self.treeWidget.topLevelItem(1).setText(0, _translate("Form", "Frame 223"))
         self.treeWidget.topLevelItem(1).child(0).setText(0, _translate("Form", "IP"))
-<<<<<<< HEAD
+
         #self.childItems = []
         #for i in range(2):
         #    self.childItems.append(QtWidgets.QTreeWidgetItem())
@@ -313,8 +312,7 @@ class Ui_PacketFromPCAPView(object):
 
             #self.treeWidget.topLevelItem(i).child(0).setFlags(self.treeWidget.topLevelItem(0).child(0).flags() | QtCore.Qt.ItemIsEditable)
        # self.treeWidget.topLevelItem(2).child(1).setText(0, _translate("Form", "BO0OB"))
-=======
->>>>>>> 4bc1659acff2391f05aad74e7d466a2641c221f2
+
         self.treeWidget.setSortingEnabled(__sortingEnabled)
         self.PacketView_2.setTabText(self.PacketView_2.indexOf(self.Dissected_2), _translate("Form", "Dissected"))
         __sortingEnabled = self.treeWidget_2.isSortingEnabled()
@@ -402,7 +400,7 @@ class Ui_PacketFromPCAPView(object):
         self.Stop_2.setText(_translate("Form", "Stop"))
         self.pushButton.setText(_translate("Form", "|+>"))
         self.pushButton_2.setText(_translate("Form", "|+>"))
-<<<<<<< HEAD
+
        # for i in range(7):
  
 
@@ -462,6 +460,3 @@ class Tree(QtWidgets.QTreeWidget):
         if index.column()!=0:
             item.setFlags(item.flags() & ~QtCore.Qt.ItemIsEditable)
 """
-=======
-
->>>>>>> 4bc1659acff2391f05aad74e7d466a2641c221f2
