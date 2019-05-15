@@ -21,11 +21,13 @@ def dissectLayers(packet):
 
 #produces packet in hexidecimal format
 def hexDump(packet):
-	return hexdump(packet)
+	hexPacket = hexdump(packet)
+	return str(hexPacket)
 
 #produces packet in "binary" format
 def binaryDump(packet):
-    return raw(packet)
+    binaryPacket = raw(packet)
+    return str(binaryPacket)
 
 #edits the field of a packet layer
 def editFields(packet,layer,field, value):
