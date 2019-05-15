@@ -87,6 +87,6 @@ def toggleTheSniffer(capture):
 			sniffer.socket.close()
 		sniffer = Sniffer(filter__)
 		
-def getFilter()
+def getFilter():
 	return filter__
 
