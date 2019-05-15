@@ -44,5 +44,7 @@ class Sniffer(Thread):
 		def appendToPcap(capturedPacket):
 			print('Writing To PCAP' + file__)
 			capturedPacket.show()
+			#dissectPacket(capturedPacket)
 			wrpcap(file__, capturedPacket, append = True)
 		return appendToPcap
+

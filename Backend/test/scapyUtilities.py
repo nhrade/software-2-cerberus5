@@ -1,46 +1,79 @@
 #!/usr/bin/env python3
-from skyplabs import *
+from scapySniffer import *
+from scapy.all import *
 
+#unpacks a PCAP file into a list of lists of layers (packets). Returns list of Scapy packets and list of packet data for easy printing
 def unpackPCAP(file_):
 	packets = rdpcap(file_)
-	layerList=list()
-	layerContentList=list()
+	pkts = list()
+	
 	for packet in packets.res:
-		r=list(dissectLayers(packet))
-		":".join(str(r))
-		c=str(packet.summary())
+		pkts.append(dissectPacket(packet))
 
-		layerList.append(r)
-		layerContentList.append(c)
-	"""test code for verification of list of lists of layers in packets
-	for pack in layerList:
-		print(pack)
-	for data in layerContentList:
-		print(data)
-	"""
-	return layerList, layerContentList
+	return packets.res, pkts
 
+#extracts the different layers within a packet by traversing each packet's contents
 def dissectLayers(packet):
 	yield packet.name
 	while packet.payload:
 		packet = packet.payload
 		yield packet.name
 
-def dissectData(packet):
-    yield packet
-    while packet.payload:
-        packet = packet.payload
-        yield packet
+#produces packet in hexidecimal format
+def hexDump(packet):
+	hexPacket = hexdump(packet)
+	return str(hexPacket)
+
+#produces packet in "binary" format
+def binaryDump(packet):
+    binaryPacket = raw(packet)
+    return str(binaryPacket)
+
+#edits the field of a packet layer
+def editFields(packet,layer,field, value):
+	setattr(packet[layer], field, value)
+# dissects Packets and returns a list of the layer dictionaries that contain fields and field values.	
+def dissectPacket(packet):
+	packetData = list()
+	l=list(dissectLayers(packet))
+	":".join(str(l))
+
+	layers = dict()
+	for layer in l:
+		fieldsAndValues = dict()
+		try:
+			for field in packet[layer].fields_desc:
+				#print(field.name)
+				if field.name== 'qd':
+				#		print(str(packet['DNS'].qd.qname))
+					val = str(packet['DNS'].qd.qname)
+				else:
+				#		print(getattr(packet[layer], field.name)) 
+					val = getattr(packet[layer], field.name)
+				fieldsAndValues[field.name] = val
+		except:
+			continue
+			
+		layers[layer] = fieldsAndValues
+
+	#print(packet.show())
+	packetData.append(layers)
+	return packetData
+
     
-unpackPCAP('2019-05-09_17.31.pcap')
+#unpackPCAP('2019-05-09_17.31.pcap')
 
 filter__ = ""
 sniffer = Sniffer(filter__)
 
 def addFilter(filter_):
+	print("At Filter")
 	global sniffer, filter__
+	if sniffer.isAlive():
+		return
 	filter__ = filter_
 	sniffer = Sniffer(filter__)
+	print("modified filter")
 
 def toggleTheSniffer(capture):
 	print(capture)
@@ -55,18 +88,7 @@ def toggleTheSniffer(capture):
 		if sniffer.isAlive():
 			sniffer.socket.close()
 		sniffer = Sniffer(filter__)
+		
+def getFilter():
+	return filter__
 
-
-while True:
-	inp = input("input if capture \n")
-	print(inp)
-	if inp == "yes":
-		capture = True
-	elif inp == "filter":
-		filter_ = input("enter filter \n")
-		addFilter(filter_)
-	else:
-		capture = False
-	print(capture)
-	#proxyOn(capture)
-	toggleTheSniffer(capture)
