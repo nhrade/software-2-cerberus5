@@ -1,14 +1,7 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'PacketFromPcapView.ui'
-#
-# Created by: PyQt5 UI code generator 5.12
-#
-# WARNING! All changes made in this file will be lost!
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
-import scapyUtilities, scapySniffer
+import scapyUtilities, scapySniffer, filterManager
 
 
 class Ui_PacketFromPCAPView(object):
@@ -147,6 +140,7 @@ class Ui_PacketFromPCAPView(object):
         self.gridLayout_5.addWidget(self.ApplyButton_2, 0, 2, 1, 1)
         self.ClearButton_3 = QtWidgets.QPushButton(self.CapturFilterArea)
         self.ClearButton_3.setObjectName("ClearButton_3")
+        self.ClearButton_4.clicked.connect(self.clearTables)
         self.gridLayout_5.addWidget(self.ClearButton_3, 0, 3, 1, 1)
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
@@ -272,8 +266,8 @@ class Ui_PacketFromPCAPView(object):
         item_0 = QtWidgets.QTreeWidgetItem(self.FieldValuesCol_2)
         item_0.setFont(0, font)
         
-        self.intializeFieldArea(self.FieldValuesCol_2, 20)
-        
+        self.intializeFieldArea(self.FieldValuesCol_2, 40)
+
         self.gridLayout_16.addWidget(self.FieldValuesCol_2, 0, 0, 1, 1)
         self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_5)
         self.gridLayout_8.addWidget(self.scrollArea_4, 0, 0, 5, 3)
@@ -419,18 +413,38 @@ class Ui_PacketFromPCAPView(object):
 
     def initializeTable(self, tree, items, subitems):
         for i in range(items):
-            item_0 = self.addTreeSubItem(tree)
+            packet = self.addTreeSubItem(tree)
             for j in range(subitems):
-                item_1 = self.addTreeSubItem(item_0)
+                layer = self.addTreeSubItem(packet)
+                """layer.itemDoubleClicked.connect(self.populateFieldArea(i, j))
+                    app = QtGui.QApplication(sys.argv)
+                    win = QtGui.QTreeWidget()
+
+                    items = [QtGui.QTreeWidgetItem("item: {}".format(i)) for i in xrange(10)]
+                    win.insertTopLevelItems(0, items)
+                    win.itemDoubleClicked.connect(handler)"""
 
     def intializeFieldArea(self, tree, rows):
         for i in range(rows):
             item_0 = self.addTreeSubItem(tree)
+            item_0.itemDoubleClicked.connect(self.editFieldArea)
+
+    def populateFieldArea(self, packetNum, layerNum):
+        for i, (field, fieldVals) in enumerate(self.pktsData[packetNum][layerNum]):
+            self.FieldValuesCol_2.topLevelItem(i).setText(0, field)
+            self.FieldValuesCol_2.topLevelItem(i).setText(1, fieldVals)
+
+
+    def editFieldArea(self):
+        scapyUtilities.
+        return
+    def forwardPacket(self, packet):
+        filterManager.forwardPacket(packet)
 
     def clearTables(self):
-        clearTable(self.treeWidget)
-        clearTable(self.treeWidget_2)
-        clearTable(self.treeWidget_3)
+        self.clearTable(self.treeWidget)
+        self.clearTable(self.treeWidget_2)
+        self.clearTable(self.treeWidget_3)
 
     def clearTable(self, tree):
         for i in range(tree.topLevelItemCount()):
