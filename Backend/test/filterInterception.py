@@ -47,7 +47,12 @@ class Interceptor(Thread):
 			self.internalQueue.put(pkt)#filterManager.interceptedQueue.push(pkt)
 		return
 	
-	def forward(self, file_, num=1, internalQueue=None):
+	def forward(self, file_, packet)
+		wrpcap(file_, packet, append = True)
+		send(packet)
+	
+
+	def forward_packet(self, file_, num=1, internalQueue=None):
 		print("At Forward")
 		if internalQueue is not None:
 			self.internalQueue = internalQueue
