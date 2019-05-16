@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from scapySniffer import *
 from scapy.all import *
-import os, atexit, filterManager
+import os, atexit
 
 saveIPTables_ = "iptables-save > savedIPTables2.txt"
 snifferIPTables = "iptables -A OUTPUT -j NFQUEUE --queue-num 1"
@@ -97,6 +97,7 @@ def toggleTheSniffer(capture):
 			os.system(restoreIPTables_)
 	else:
 		print("[*] Stop sniffing")
+		import filterManager
 		filterManager.toggleInterception(False)
 		os.system(restoreIPTables_)
 		if sniffer.isAlive():
