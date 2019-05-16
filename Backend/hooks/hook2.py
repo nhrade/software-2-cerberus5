@@ -8,8 +8,8 @@ class Hook2:
         self.hookName = 'hook2'
 
     '''
-    :returns tuple of packet and whether to drop the packet or not:
+    :returns modified packet:
     '''
     def run(self, packet):
         packet['DNS'].sport = 44444
-        return packet, False
+        return packet
