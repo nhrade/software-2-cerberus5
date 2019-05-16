@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 from scapySniffer import *
 from scapy.all import *
+import os, atexit, filterManager
 
+saveIPTables_ = "iptables-save > savedIPTables2.txt"
+snifferIPTables = "iptables -A OUTPUT -j NFQUEUE --queue-num 1"
+restoreIPTables_ = "iptables-restore < savedIPTables2.txt"
+backupRestore_ = "iptables-restore < backupIPTables.txt"
 #unpacks a PCAP file into a list of lists of layers (packets). Returns list of Scapy packets and list of packet data for easy printing
 def unpackPCAP(file_):
 	packets = rdpcap(file_)
@@ -84,15 +89,27 @@ def toggleTheSniffer(capture):
 	global sniffer
 	if capture and not sniffer.isAlive():
 		print("[*] Start sniffing...")
-		sniffer.start()
+		try:
+			os.system(saveIPTables_)
+			os.system(snifferIPTables)
+			sniffer.start()
+		except:
+			os.system(restoreIPTables_)
 	else:
 		print("[*] Stop sniffing")
+		filterManager.toggleInterception(False)
+		os.system(restoreIPTables_)
 		if sniffer.isAlive():
 			sniffer.join(2.0)
-		if sniffer.isAlive():
-			sniffer.socket.close()
+#		""""if sniffer.isAlive():
+#			sniffer.socket.close()""""
 		sniffer = Sniffer(filter__)
 		
 def getFilter():
 	return filter__
+	
+def snifferIsAlive():
+	return sniffer.isAlive()
+	
+atexit.register(toggleTheSniffer, False)
 

@@ -7,17 +7,20 @@ import queue #interceptionQueue
 
 
 class Interceptor(Thread):
-	def __init__(self, filter_="", maxLength=100):#interface="eth0",
+	def __init__(self, filter_="", maxLength=100, queue_=[]):#interface="eth0",
 		super().__init__()
 		
 		self.daemon = True
 		
-		self.socket = None
+		#self.socket = None
 		self.filter_ = filter_
 		self.maxlength = maxLength
 		self.stop_interception = Event()
 		self.nfqueue = NetfilterQueue()
-		self.internalQueue = queue.Queue(maxLength)#interceptionQueue.Intercepted()
+
+		self.internalQueue = []#queue.Queue(maxLength)#interceptionQueue.Intercepted()
+		if queue_:
+			self.internalQueue = queue_
 
 	def run(self):
 		#self.internalQueue = queue.Queue()
@@ -25,6 +28,7 @@ class Interceptor(Thread):
 		#type=ETH_P_ALL,
 			#iface=self.interface,
 		#	filter=self.filter_)
+		print(len(self.internalQueue))
 		self.nfqueue.bind(0, self.modify_using_hooks, self.maxlength)
 		self.nfqueue.run()
 		
@@ -32,6 +36,7 @@ class Interceptor(Thread):
 
 	def join(self, timeout=None):
 		self.stop_interception.set()
+		self.nfqueue.unbind()
 		super().join(timeout)
 
 	def modify_using_hooks(self, packet):
@@ -40,26 +45,32 @@ class Interceptor(Thread):
 		#modify packet
 		if not sniff(offline=pkt, filter=self.filter_):
 			print("packet Denied")
+			send(pkt)
 			return
-		
-		if not self.internalQueue.full():
+		print(len(self.internalQueue))
+		print(self.maxlength)
+		if len(self.internalQueue) < self.maxlength:#.full():
 			print("packet Accepted")
-			self.internalQueue.put(pkt)#filterManager.interceptedQueue.push(pkt)
+			self.internalQueue.append(pkt)#filterManager.interceptedQueue.push(pkt)
 		return
 	
-	def forward(self, file_, packet)
+	def forward(self, file_, packet):
 		wrpcap(file_, packet, append = True)
 		send(packet)
 	
 
-	def forward_packet(self, file_, num=1, internalQueue=None):
+	def forward_packet(self, file_, num=1, internalQueue=[]):
+		print(file_)
+		print(num)
+		print(len(internalQueue))
 		print("At Forward")
-		if internalQueue is not None:
+		if internalQueue:
+			print("recieved Packets")
 			self.internalQueue = internalQueue
-		print(self.internalQueue.empty())
-		if self.internalQueue.qsize() >= num:
+		print(len(self.internalQueue))
+		if len(self.internalQueue) >= num:#.qsize() >= num:
 			for i in range(num):# and not self.internalQueue.empty():
-				packet = self.internalQueue.get()
+				packet = self.internalQueue.pop(0)
 				print("At popped")
 				packet.show()
 				wrpcap(file_, packet, append = True)
@@ -67,13 +78,13 @@ class Interceptor(Thread):
 			print("After Pop")
 		#self.internalQueue.pop(file_, numPacks)
 
-	def dropPacket(self, num=1, internalQueue=None):
+	def dropPacket(self, num=1, internalQueue=[]):
 		print("At Drop")
-		if internalQueue is not None:
+		if internalQueue:
 			self.internalQueue = internalQueue
-		if self.internalQueue.qsize() >= num:
+		if len(self.internalQueue) >= num:#.qsize() >= num:
 			for i in range(num):# and not self.internalQueue.empty():
-				packet = self.internalQueue.get()
+				packet = self.internalQueue.pop(0)
 				print("At popped")
 				packet.show()
 				#wrpcap(file_, packet, append = True)
