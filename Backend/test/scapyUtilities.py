@@ -21,8 +21,10 @@ def dissectLayers(packet):
 
 #produces packet in hexidecimal format
 def hexDump(packet):
-	hexPacket = hexdump(packet)
-	return str(hexPacket)
+	s = str(packet)
+	":".join("{:02x}".format(ord(c)) for c in s)
+	return s
+    #return str(binaryPacket)#hexPkt = hexdump(packet)
 
 #produces packet in "binary" format
 def binaryDump(packet):
@@ -61,7 +63,9 @@ def dissectPacket(packet):
 	return packetData
 
     
-#unpackPCAP('2019-05-09_17.31.pcap')
+#packets, pktsData = unpackPCAP('2019-05-09_17.31.pcap')
+#s= hexDump(packets[1])
+#print(s)
 
 filter__ = ""
 sniffer = Sniffer(filter__)

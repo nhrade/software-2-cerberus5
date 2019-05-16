@@ -1,8 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
-import scapyUtilities, scapySniffer, filterManager
-
+import scapyUtilities, scapySniffer
 
 class Ui_PacketFromPCAPView(object):
     def setupUi(self, Form):
@@ -416,6 +415,7 @@ class Ui_PacketFromPCAPView(object):
             packet = self.addTreeSubItem(tree)
             for j in range(subitems):
                 layer = self.addTreeSubItem(packet)
+                #tree.clicked.connect(self.populateFieldArea(i, j))
                 """layer.itemDoubleClicked.connect(self.populateFieldArea(i, j))
                     app = QtGui.QApplication(sys.argv)
                     win = QtGui.QTreeWidget()
@@ -427,19 +427,18 @@ class Ui_PacketFromPCAPView(object):
     def intializeFieldArea(self, tree, rows):
         for i in range(rows):
             item_0 = self.addTreeSubItem(tree)
-            item_0.itemDoubleClicked.connect(self.editFieldArea)
+            #item_0.clicked.connect(self.editFieldArea)
 
     def populateFieldArea(self, packetNum, layerNum):
-        for i, (field, fieldVals) in enumerate(self.pktsData[packetNum][layerNum]):
-            self.FieldValuesCol_2.topLevelItem(i).setText(0, field)
-            self.FieldValuesCol_2.topLevelItem(i).setText(1, fieldVals)
+        if self.pktsData is None:
+            print("s")
+      
 
-
-    def editFieldArea(self):
-        scapyUtilities.
-        return
+    def editFieldArea(self, packet, layer, field, value):
+        scapyUtilities.editPacket(packet, layer, field, value)
+        
     def forwardPacket(self, packet):
-        filterManager.forwardPacket(packet)
+        print("cow")#filterManager.forwardPacket(packet)
 
     def clearTables(self):
         self.clearTable(self.treeWidget)
