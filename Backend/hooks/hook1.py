@@ -11,6 +11,9 @@ class Hook1:
     def __init__(self):
         self.hookName = 'hook1'
 
-    def run(self, packets):
-        for packet in packets:
-            packet['TCP'].sport = 55555
+    '''
+    :returns tuple of packet and whether to drop the packet or not:
+    '''
+    def run(self, packet):
+        packet['TCP'].sport = 55555
+        return packet, False

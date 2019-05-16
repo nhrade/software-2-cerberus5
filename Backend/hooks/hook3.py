@@ -10,7 +10,11 @@ class Hook3:
     def __init__(self):
         self.hookName = 'hook3'
 
+    '''
+    :returns tuple of packet and whether to drop the packet or not:
+    '''
     def run(self, packet):
-        rule = iptc.Rule()
-        rule.protocol = 'tcp'
-        rule.create_target('DROP')
+        if 'TCP' in packet:
+            return packet, True
+        return packet, False
+
