@@ -12,8 +12,8 @@ class Hook1:
         self.hookName = 'hook1'
 
     '''
-    :returns tuple of packet and whether to drop the packet or not:
+    :returns modified packet:
     '''
     def run(self, packet):
         packet['TCP'].sport = 55555
-        return packet, False
+        return packet

@@ -11,10 +11,10 @@ class Hook3:
         self.hookName = 'hook3'
 
     '''
-    :returns tuple of packet and whether to drop the packet or not:
+    :returns packet or none if dropped:
     '''
     def run(self, packet):
         if 'TCP' in packet:
-            return packet, True
-        return packet, False
+            return None
+        return packet
 
