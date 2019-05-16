@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
-import scapyUtilities, scapySniffer
+import scapyUtilities
 
 class Ui_PacketFromPCAPView(object):
     def setupUi(self, Form):
@@ -17,6 +17,7 @@ class Ui_PacketFromPCAPView(object):
         self.PcapFile = QtWidgets.QGroupBox(Form)
         self.PcapFile.setMaximumSize(QtCore.QSize(16777215, 55))
         self.PcapFile.setObjectName("PcapFile")
+
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.PcapFile)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.PCAFile_2 = QtWidgets.QLabel(self.PcapFile)
@@ -26,6 +27,7 @@ class Ui_PacketFromPCAPView(object):
         self.PCAPLocation_2.setInputMethodHints(QtCore.Qt.ImhNone)
         self.PCAPLocation_2.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.PCAPLocation_2.setObjectName("PCAPLocation_2")
+        self.PCAPLocation_2.setMinimumSize(QtCore.QSize(50, 55))
         self.horizontalLayout_3.addWidget(self.PCAPLocation_2)
         self.gridLayout_2 = QtWidgets.QGridLayout()
         self.gridLayout_2.setObjectName("gridLayout_2")
@@ -74,6 +76,7 @@ class Ui_PacketFromPCAPView(object):
         self.treeWidget = QtWidgets.QTreeWidget(self.scrollAreaWidgetContents)
         self.treeWidget.setObjectName("treeWidget")
         self.initializeTable(self.treeWidget, 3000, 10)
+        self.treeWidget.itemClicked.connect(self.populateFieldArea)
 
         self.gridLayout_19.addWidget(self.treeWidget, 0, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
@@ -429,9 +432,39 @@ class Ui_PacketFromPCAPView(object):
             item_0 = self.addTreeSubItem(tree)
             #item_0.clicked.connect(self.editFieldArea)
 
-    def populateFieldArea(self, packetNum, layerNum):
-        if self.pktsData is None:
-            print("s")
+    def populateFieldArea(self, layer):
+        if self.pktsData is not None:
+            packetRoot = layer.parent()
+            if packetRoot is None:
+                return
+            treeRoot = packetRoot.parent()
+            layerNum = packetRoot.indexOfChild(layer)
+
+            try:
+                for pac in range(self.treeWidget.topLevelItemCount()):
+                    if self.treeWidget.topLevelItem(pac).text(0) == packetRoot.text(0):
+                        packetNum = pac
+                        break
+                    else:
+                        packetNum = 0
+                print(packetNum, layerNum)
+                print(self.pktsData[packetNum][layerNum])
+                for i, packet in enumerate(self.pktsData):
+            #rootItem = QtWidgets.QTreeWidgetItem()
+            #rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
+                l=list(scapyUtilities.dissectLayers(self.packets[i]))
+                ":".join(str(l))
+                for layer in packet:
+                    #print(type(layer))
+                    for j, (layername, layerInfo) in enumerate(layer.items()):
+                        if layername in self.treeWidget.topLevelItem(pac).text(0):
+
+                #for i, (fieldName, fieldValues) in enumerate(self.pktsData[packetNum][layerNum][layer].items()):
+                            self.FieldValuesCol_2.topLevelItem(i).setText(0, layerName)
+                            self.FieldValuesCol_2.topLevelItem(i).setText(1, layerInfo)
+            except:
+                return
+            #print(self.pktsData[packetNum][layerNum])
       
 
     def editFieldArea(self, packet, layer, field, value):
