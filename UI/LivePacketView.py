@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os, threading
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
-import scapyUtilities, filterManager
+import scapyUtilities, filterManager, atexit
 #from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QWidget
 
 class Ui_LivePacketView(object):
@@ -488,7 +488,7 @@ class Ui_LivePacketView(object):
             print("starting sniff thread")
             self.sniffThread = threading.Thread(target = scapyUtilities.toggleTheSniffer(), args=(self.addTreeItems,))
         else:
-            
+            #self.sniffThread.join(1)
             scapyUtilities.toggleTheSniffer(False)
 
     def enabledInterceptor(self, text):
@@ -536,4 +536,6 @@ class Ui_LivePacketView(object):
             tree.topLevelItem(i).setText(0,"")
             for j in range(tree.topLevelItem(i).childCount()):
                 tree.topLevelItem(i).child(j).setText(0, "")
+
+    atexit.register(enabledProxy, False)
 
