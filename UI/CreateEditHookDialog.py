@@ -1,9 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_CreateEditHook(object):
-    def __init__(self, hookCollection):
-		self.hookCollection = hookCollection
-        
     def setupUi(self, CreateEditHook):
         CreateEditHook.setObjectName("CreateEditHook")
         CreateEditHook.resize(372, 132)
@@ -60,23 +57,6 @@ class Ui_CreateEditHook(object):
 
         self.retranslateUi(CreateEditHook)
         QtCore.QMetaObject.connectSlotsByName(CreateEditHook)
-
-    def setupSignals(self):
-		self.createHookButton.clicked.connect(self.onCreateHook)
-	
-	def onCreateHook(self):
-		self.createHookDialog = QWidgets.QDialog()
-		self.createHook = Ui_createEditHook()
-		self.createHook.setupUi(self.createHookDialog)
-		self.saveButton.clicked.connect(self.onSaveButtonClicked)
-		self.createHookDialog.show()
-	
-	def onSaveButtonClicked(self):
-		name = self.hookNameEdit.text()
-		sequence = 0
-		status = True
-		description = self.descriptionEdit.text()
-		path = self.hookPathEdit.text()
 
     def retranslateUi(self, CreateEditHook):
         _translate = QtCore.QCoreApplication.translate
