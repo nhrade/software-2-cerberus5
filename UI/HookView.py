@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from UI.CreateEditHookDialog import Ui_CreateEditHook
-from Backend.Hook import Hook
+from CreateEditHookDialog import Ui_CreateEditHook
+import os,sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend'))
+from Hook import Hook
 
 class Ui_HookView(object):
     def __init__(self):

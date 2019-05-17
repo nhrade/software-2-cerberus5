@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Backend.HookCollectionManager import HookCollectionManager
-from Backend.HookCollection import HookCollection
-
+import os, sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend'))
+from HookCollectionManager import HookCollectionManager
+from HookCollection import HookCollection
 class Ui_hookCollectionDialog(object):
 
     def __init__(self, hookCollectionManager, hookCollectionView):
