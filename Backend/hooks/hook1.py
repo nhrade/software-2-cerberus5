@@ -15,5 +15,6 @@ class Hook1:
     :returns modified packet:
     '''
     def run(self, packet):
-        packet['TCP'].sport = 55555
+        if 'TCP' in packet:
+            packet['TCP'].sport = 55555
         return packet

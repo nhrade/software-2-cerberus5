@@ -47,6 +47,7 @@ class Sniffer(Thread):
 		pkt = IP(packet.get_payload())
 		packet.drop()
 		#modify packet
+		# apply hooks
 		if not sniff(offline=pkt, filter=self.filter_):
 			print("packet Denied")
 			send(pkt)#############################
