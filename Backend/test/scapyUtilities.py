@@ -101,8 +101,6 @@ def toggleTheSniffer(capture):
 		os.system(restoreIPTables_)
 		if sniffer.isAlive():
 			sniffer.join(2.0)
-#		""""if sniffer.isAlive():
-#			sniffer.socket.close()""""
 		sniffer = Sniffer(filter__)
 		
 def getFilter():
