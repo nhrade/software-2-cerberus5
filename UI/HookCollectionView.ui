@@ -14,24 +14,56 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="5" column="2" colspan="4">
-    <widget class="QComboBox" name="comboBox_21">
-     <item>
-      <property name="text">
-       <string>Hook Collection 1</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>New Item</string>
-      </property>
-     </item>
+   <item row="5" column="2" colspan="3">
+    <widget class="QLabel" name="label_12">
+     <property name="text">
+      <string>Page: 1 | 2 | 3 ...</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
    </item>
-   <item row="4" column="3">
-    <widget class="QPushButton" name="pushButton_46">
-     <property name="text">
-      <string>No. of Hooks</string>
+   <item row="1" column="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="createHookCollectionButton">
+       <property name="text">
+        <string>+Hook Collection</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
+        <string>Delete</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="editButton">
+       <property name="text">
+        <string>Edit</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="searchButton">
+       <property name="text">
+        <string>Search</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="3">
+    <widget class="QTextEdit" name="hookCollectionNameEdit">
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt; color:#a1a1a1;&quot;&gt;Name of Hook Collection&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -45,93 +77,28 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="2" colspan="3">
-    <widget class="QLabel" name="label_12">
-     <property name="text">
-      <string>Page: 1 | 2 | 3 ...</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="QPushButton" name="pushButton_45">
-     <property name="text">
-      <string>Hook Collection</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="4">
-    <widget class="QPushButton" name="pushButton_47">
-     <property name="text">
-      <string>Hook Collection Status</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="2" colspan="4">
-    <widget class="QComboBox" name="comboBox_22">
-     <item>
+   <item row="3" column="2" colspan="3">
+    <widget class="QTableWidget" name="hookCollectionTable">
+     <column>
       <property name="text">
-       <string>Hook Collection 2</string>
+       <string>Hook Collection</string>
       </property>
-     </item>
-     <item>
+     </column>
+     <column>
       <property name="text">
-       <string>New Item</string>
+       <string>No. Hooks</string>
       </property>
-     </item>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="QPushButton" name="pushButton_48">
-     <property name="text">
-      <string>Hook Collection
-Execution Status</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>+Hook Collection</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Delete</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>Edit</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="1" column="3">
-    <widget class="QTextEdit" name="textEdit">
-     <property name="html">
-      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt; color:#a1a1a1;&quot;&gt;Name of Hook Collection&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Hook Collection Status</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Hook Collection Execution Sequence</string>
+      </property>
+     </column>
     </widget>
    </item>
   </layout>

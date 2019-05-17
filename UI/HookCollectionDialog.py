@@ -1,6 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from Backend.HookCollectionManager import HookCollectionManager
+from Backend.HookCollection import HookCollection
 
 class Ui_hookCollectionDialog(object):
+
+    def __init__(self, hookCollectionManager, hookCollectionView):
+        self.hookCollectionManager = hookCollectionManager
+        #self.hookCollectionView = self.hookCollectionView
+
     def setupUi(self, hookCollectionDialog):
         hookCollectionDialog.setObjectName("hookCollectionDialog")
         hookCollectionDialog.resize(400, 300)
@@ -129,9 +136,24 @@ class Ui_hookCollectionDialog(object):
         self.horizontalLayout_4.addWidget(self.cancelButton)
         self.horizontalLayout_5.addLayout(self.horizontalLayout_4)
         self.verticalLayout_2.addWidget(self.widget)
-
+        self.statusComboBox.addItem('Enabled')
+        self.statusComboBox.addItem('Disabled')
         self.retranslateUi(hookCollectionDialog)
         QtCore.QMetaObject.connectSlotsByName(hookCollectionDialog)
+
+    def setupSignals(self):
+        pass
+        #self.saveButton.clicked(self.saveButtonClicked)
+
+    def saveButtonClicked(self):
+        description = self.descriptionEdit.text()
+        hookCollectionName = self.hookCollectionNameEdit.text()
+        status = self.statusComboBox.currentText()
+        executionSequence = self.executionSequenceEdit.text()
+        self.hookCollectionView.hookCollectionTable.repaint()
+        if self.hookCollectionManager.getHookCollection(hookCollectionName) == None:
+            self.hookCollectionManager.addHookCollection(HookCollection(
+                hookCollectionName, executionSequence, status, description))
 
     def retranslateUi(self, hookCollectionDialog):
         _translate = QtCore.QCoreApplication.translate
