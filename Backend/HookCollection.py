@@ -29,7 +29,7 @@ class HookCollection:
 		for h in range(self.listOfHooks):
 			hook.updateHookActivationState(h)
 	
-	def provideHookCollectionName:
+	def provideHookCollectionName(self):
 		return self.name;
 	
 	def searchForHook(self, thisHook):
