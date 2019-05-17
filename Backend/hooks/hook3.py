@@ -1,5 +1,3 @@
-import iptc
-
 '''
 hook3.py
 @author Noah
