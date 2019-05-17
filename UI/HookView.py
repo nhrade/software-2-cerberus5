@@ -1,6 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_HookView(object):
+    def __init__(self, hookCollection):
+		self.hookCollection = hookCollection
+        
     def setupUi(self, HookView):
         HookView.setObjectName("HookView")
         HookView.resize(448, 338)
@@ -77,6 +80,24 @@ class Ui_HookView(object):
 
         self.retranslateUi(HookView)
         QtCore.QMetaObject.connectSlotsByName(HookView)
+    
+    def setupSignals(self):
+		self.createHookButton.clicked.connect(self.onCreateHook)
+	
+	def onCreateHook(self):
+		self.createHookDialog = QWidgets.QDialog()
+		self.createHook = Ui_createEditHook()
+		self.createHook.setupUi(self.createHookDialog)
+		self.saveButton.clicked.connect(self.onSaveButtonClicked)
+		self.createHookDialog.show()
+	
+	def onSaveButtonClicked(self):
+		name = self.hookNameEdit.text()
+		sequence = 0
+		status = True
+		description = self.descriptionEdit.text()
+		path = self.hookPathEdit.text()
+
 
     def retranslateUi(self, HookView):
         _translate = QtCore.QCoreApplication.translate
