@@ -2,6 +2,9 @@ import os
 import sys
 import importlib
 
+
+hookList = []
+
 '''
 Hook.py
 author: Riley, Noah

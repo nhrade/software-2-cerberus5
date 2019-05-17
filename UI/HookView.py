@@ -3,10 +3,11 @@ from CreateEditHookDialog import Ui_CreateEditHook
 import os,sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend'))
 from Hook import Hook
+from Hook import hookList
 
 class Ui_HookView(object):
     def __init__(self):
-        self.hookList = []
+        hookList = []
 
     def setupUi(self, HookView):
         HookView.setObjectName("HookView")
@@ -106,7 +107,7 @@ class Ui_HookView(object):
         path = kwargs['path']
         hook = Hook(name=name, sequenceNumber=self.hookPropertiesTable.rowCount(),
                                   status=True, description=description)
-        self.hookList.append(hook)
+        hookList.append(hook)
         self.addHookToTable(hook)
 
 
