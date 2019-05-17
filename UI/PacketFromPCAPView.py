@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend/test'))
-import scapyUtilities
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend'))
+import scapyUtilities, filterManager
 
 class Ui_PacketFromPCAPView(object):
     def setupUi(self, Form):
@@ -12,6 +12,7 @@ class Ui_PacketFromPCAPView(object):
         self.Form = Form
         self.gridLayout_10 = QtWidgets.QGridLayout(Form)
         self.gridLayout_10.setObjectName("gridLayout_10")
+        
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
         self.PcapFile = QtWidgets.QGroupBox(Form)
@@ -449,11 +450,11 @@ class Ui_PacketFromPCAPView(object):
                         packetNum = 0
                 print(packetNum, layerNum)
                 print(self.pktsData[packetNum][layerNum])
-                for i, packet in enumerate(self.pktsData):
-            #rootItem = QtWidgets.QTreeWidgetItem()
-            #rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
-                l=list(scapyUtilities.dissectLayers(self.packets[i]))
-                ":".join(str(l))
+                """for i, packet in enumerate(self.pktsData):
+            rootItem = QtWidgets.QTreeWidgetItem()
+            rootItem.setFlags(rootItem.flags() | QtCore.Qt.ItemIsEditable)
+				l=list(scapyUtilities.dissectLayers(self.packets[i]))
+            	":".join(str(l))
                 for layer in packet:
                     #print(type(layer))
                     for j, (layername, layerInfo) in enumerate(layer.items()):
@@ -461,7 +462,7 @@ class Ui_PacketFromPCAPView(object):
 
                 #for i, (fieldName, fieldValues) in enumerate(self.pktsData[packetNum][layerNum][layer].items()):
                             self.FieldValuesCol_2.topLevelItem(i).setText(0, layerName)
-                            self.FieldValuesCol_2.topLevelItem(i).setText(1, layerInfo)
+                            self.FieldValuesCol_2.topLevelItem(i).setText(1, layerInfo)"""
             except:
                 return
             #print(self.pktsData[packetNum][layerNum])
@@ -471,7 +472,7 @@ class Ui_PacketFromPCAPView(object):
         scapyUtilities.editPacket(packet, layer, field, value)
         
     def forwardPacket(self, packet):
-        print("cow")#filterManager.forwardPacket(packet)
+        filterManager.forwardPacket(packet)
 
     def clearTables(self):
         self.clearTable(self.treeWidget)
