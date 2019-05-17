@@ -27,7 +27,7 @@ class Hook:
 	def executeHook(self, packet):
 		if self.status:
 			self.hook.run(packet)
-		
+
 	def updateHookSequence(self, number):
 		self.sequenceNumber = number
 	

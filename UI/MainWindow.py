@@ -5,8 +5,12 @@ from HookView import Ui_HookView
 from HookCollectionView import Ui_HookCollectionView
 from LivePacketView import Ui_LivePacketView
 from PacketFromPCAPView import Ui_PacketFromPCAPView
+from Backend.HookCollectionManager import HookCollectionManager
 
 class Ui_MainWindow(object):
+
+    def setupHooks(self):
+        self.hookCollectionManager = HookCollectionManager()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -115,6 +119,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedContentView.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.setupHooks()
 
     def changeContentView(self, index):
         self.stackedContentView.setCurrentIndex(index)
@@ -144,14 +149,3 @@ class Ui_MainWindow(object):
         self.actionProxy_Behavior_Disabled.setText(_translate("MainWindow", "Proxy Behavior Disabled"))
         self.actionQueue_Error_Message.setText(_translate("MainWindow", "Queue Error Message"))
         self.actionHook_Collection_Execution_Sequence_Error.setText(_translate("MainWindow", "Hook Collection Execution Sequence Error"))
-
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = QMainWindow()
-    mainWindow = Ui_MainWindow()
-    mainWindow.setupUi(window)
-    mainWindow.setupSignals()
-    window.show()
-    sys.exit(app.exec_())

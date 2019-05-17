@@ -8,7 +8,7 @@ author: Riley
 class HookCollection:
 	def __init__(self, name, sequenceNumber, status, description, associationCounter, listOfHooks):
 		self.name = name
-        self.sequenceNumber = sequenceNumber
+		self.sequenceNumber = sequenceNumber
 		self.status = status
 		self.description = description
 		self.associationCounter = self.associationCounter
