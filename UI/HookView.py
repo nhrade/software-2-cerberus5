@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_HookView(object):
     def __init__(self, hookCollection):
-		self.hookCollection = hookCollection
+	self.hookCollection = hookCollection
         
     def setupUi(self, HookView):
         HookView.setObjectName("HookView")
