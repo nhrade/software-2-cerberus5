@@ -1,6 +1,7 @@
 '''
 hook2.py
 @author Noah
+changes source port of tcp packets to 44444
 '''
 class Hook2:
 
@@ -11,5 +12,6 @@ class Hook2:
     :returns modified packet:
     '''
     def run(self, packet):
-        packet['DNS'].sport = 44444
+        if 'DNS' in packet:
+            packet['DNS'].sport = 44444
         return packet
