@@ -49,8 +49,8 @@ class Sniffer(Thread):
 		#modify packet		#send to enabled Hook Collections
 		for h in hookList:
 			pkt = h.hook.run(pkt)
-                if pkt is None:
-                    return
+		if pkt is None:
+			return
 		if not sniff(offline=pkt, filter=self.filter_):
 			print("packet Denied")
 			send(pkt)#############################
