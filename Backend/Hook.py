@@ -13,9 +13,14 @@ class Hook:
 		self.sequenceNumber = sequenceNumber
 		self.status = status
 		self.description = description
-		hookModule = importlib.import_module('hooks.{}'.format(name))
-		hookClass = getattr(hookModule, name[0].upper() + name[1:])
-		self.hook = hookClass()
+
+		try:
+			hookModule = importlib.import_module('hooks.{}'.format(name))
+			hookClass = getattr(hookModule, name[0].upper() + name[1:])
+			print('loading hook ' + str(hookClass))
+			self.hook = hookClass()
+		except Exception:
+			print("Hook couldn't be loaded!")
 
 	def hookInfo (self):
 		print("Hook Name: " + self.name + "\n")

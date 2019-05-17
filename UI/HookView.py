@@ -102,7 +102,6 @@ class Ui_HookView(object):
         name = kwargs['name']
         description = kwargs['description']
         path = kwargs['path']
-        print(name + description)
         hook = Hook(name=name, sequenceNumber=self.hookPropertiesTable.rowCount(),
                                   status=True, description=description)
         self.hookList.append(hook)
@@ -129,10 +128,4 @@ class Ui_HookView(object):
         item.setText(_translate("HookView", "Association to Hook Collection"))
         __sortingEnabled = self.hookPropertiesTable.isSortingEnabled()
         self.hookPropertiesTable.setSortingEnabled(False)
-        item = self.hookPropertiesTable.item(0, 0)
-        item.setText(_translate("HookView", "Hook 1"))
-        item = self.hookPropertiesTable.item(0, 1)
-        item.setText(_translate("HookView", "Description of hook 1"))
-        item = self.hookPropertiesTable.item(0, 2)
-        item.setText(_translate("HookView", "2"))
         self.hookPropertiesTable.setSortingEnabled(__sortingEnabled)
