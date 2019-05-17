@@ -1,19 +1,21 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from UI.CreateEditHookDialog import Ui_CreateEditHook
+from Backend.Hook import Hook
 
 class Ui_HookView(object):
-	def __init__(self, hookCollection):
-		self.hookCollection = hookCollection
-        
+    def __init__(self):
+        self.hookList = []
+
     def setupUi(self, HookView):
-		HookView.setObjectName("HookView")
-       	HookView.resize(448, 338)
-       	self.gridLayout_3 = QtWidgets.QGridLayout(HookView)
-       	self.gridLayout_3.setObjectName("gridLayout_3")
-       	self.label_3 = QtWidgets.QLabel(HookView)
-       	font = QtGui.QFont()
-       	font.setPointSize(8)
-       	font.setBold(False)
-    	font.setItalic(False)
+        HookView.setObjectName("HookView")
+        HookView.resize(448, 338)
+        self.gridLayout_3 = QtWidgets.QGridLayout(HookView)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.label_3 = QtWidgets.QLabel(HookView)
+        font = QtGui.QFont()
+        font.setPointSize(8)
+        font.setBold(False)
+        font.setItalic(False)
         font.setUnderline(False)
         font.setWeight(50)
         font.setStrikeOut(False)
@@ -78,48 +80,59 @@ class Ui_HookView(object):
         self.gridLayout_5.addWidget(self.hookPropertiesTable, 1, 0, 1, 1)
         self.gridLayout_3.addWidget(self.hookPropertiesFrame, 1, 0, 1, 2)
         self.retranslateUi(HookView)
-	    QtCore.QMetaObject.connectSlotsByName(HookView)
-	    
-	def setupSignals(self):
-		self.createHookButton.clicked.connect(self.onCreateHook)
-		
-	def onCreateHook(self):
-		self.createHookDialog = QWidgets.QDialog()
-		self.createHook = Ui_createEditHook()
-		self.createHook.setupUi(self.createHookDialog)
-		self.saveButton.clicked.connect(self.onSaveButtonClicked)
-		self.createHookDialog.show()
-		
-	def onSaveButtonClicked(self):
-		name = self.hookNameEdit.text()
-		sequence = 0
-		status = True
-		description = self.descriptionEdit.text()
-		path = self.hookPathEdit.text()
-	
-	def retranslateUi(self, HookView):
-	    _translate = QtCore.QCoreApplication.translate
-	    HookView.setWindowTitle(_translate("HookView", "Form"))
-	    self.label_3.setText(_translate("HookView", "Page: 1 | 2 | 3"))
-	    self.editHookButton.setText(_translate("HookView", "Edit"))
-	    self.deleteHookButton.setText(_translate("HookView", "Delete"))
-	    self.createHookButton.setText(_translate("HookView", "+Hook"))
-	    self.searchLabel.setText(_translate("HookView", "Search"))
-	    self.label_2.setText(_translate("HookView", "Hook Properties"))
-	    item = self.hookPropertiesTable.verticalHeaderItem(0)
-	    item.setText(_translate("HookView", "*"))
-	    item = self.hookPropertiesTable.horizontalHeaderItem(0)
-	    item.setText(_translate("HookView", "Hook"))
-	    item = self.hookPropertiesTable.horizontalHeaderItem(1)
-	    item.setText(_translate("HookView", "Description"))
-	    item = self.hookPropertiesTable.horizontalHeaderItem(2)
-	    item.setText(_translate("HookView", "Association to Hook Collection"))
-	    __sortingEnabled = self.hookPropertiesTable.isSortingEnabled()
-	    self.hookPropertiesTable.setSortingEnabled(False)
-	    item = self.hookPropertiesTable.item(0, 0)
-	    item.setText(_translate("HookView", "Hook 1"))
-	    item = self.hookPropertiesTable.item(0, 1)
-	    item.setText(_translate("HookView", "Description of hook 1"))
-	    item = self.hookPropertiesTable.item(0, 2)
-	    item.setText(_translate("HookView", "2"))
-	    self.hookPropertiesTable.setSortingEnabled(__sortingEnabled)
+        QtCore.QMetaObject.connectSlotsByName(HookView)
+        self.setupSignals()
+
+    def setupSignals(self):
+        self.createHookButton.clicked.connect(self.onCreateHook)
+
+    def onCreateHook(self):
+        self.createHookDialog = QtWidgets.QDialog()
+        self.createHook = Ui_CreateEditHook(self)
+        self.createHook.setupUi(self.createHookDialog)
+        self.createHookDialog.show()
+
+    def addHookToTable(self, hook):
+        rowCount = self.hookPropertiesTable.rowCount()
+        self.hookPropertiesTable.insertRow(rowCount)
+        self.hookPropertiesTable.setItem(rowCount-1, 0, QtWidgets.QTableWidgetItem(hook.name))
+        self.hookPropertiesTable.setItem(rowCount-1, 1, QtWidgets.QTableWidgetItem(hook.description))
+
+    def updateHookView(self, **kwargs):
+        name = kwargs['name']
+        description = kwargs['description']
+        path = kwargs['path']
+        print(name + description)
+        hook = Hook(name=name, sequenceNumber=self.hookPropertiesTable.rowCount(),
+                                  status=True, description=description)
+        self.hookList.append(hook)
+        self.addHookToTable(hook)
+
+
+
+    def retranslateUi(self, HookView):
+        _translate = QtCore.QCoreApplication.translate
+        HookView.setWindowTitle(_translate("HookView", "Form"))
+        self.label_3.setText(_translate("HookView", "Page: 1 | 2 | 3"))
+        self.editHookButton.setText(_translate("HookView", "Edit"))
+        self.deleteHookButton.setText(_translate("HookView", "Delete"))
+        self.createHookButton.setText(_translate("HookView", "+Hook"))
+        self.searchLabel.setText(_translate("HookView", "Search"))
+        self.label_2.setText(_translate("HookView", "Hook Properties"))
+        item = self.hookPropertiesTable.verticalHeaderItem(0)
+        item.setText(_translate("HookView", "*"))
+        item = self.hookPropertiesTable.horizontalHeaderItem(0)
+        item.setText(_translate("HookView", "Hook"))
+        item = self.hookPropertiesTable.horizontalHeaderItem(1)
+        item.setText(_translate("HookView", "Description"))
+        item = self.hookPropertiesTable.horizontalHeaderItem(2)
+        item.setText(_translate("HookView", "Association to Hook Collection"))
+        __sortingEnabled = self.hookPropertiesTable.isSortingEnabled()
+        self.hookPropertiesTable.setSortingEnabled(False)
+        item = self.hookPropertiesTable.item(0, 0)
+        item.setText(_translate("HookView", "Hook 1"))
+        item = self.hookPropertiesTable.item(0, 1)
+        item.setText(_translate("HookView", "Description of hook 1"))
+        item = self.hookPropertiesTable.item(0, 2)
+        item.setText(_translate("HookView", "2"))
+        self.hookPropertiesTable.setSortingEnabled(__sortingEnabled)

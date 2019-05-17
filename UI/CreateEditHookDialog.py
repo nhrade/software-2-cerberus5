@@ -1,9 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_CreateEditHook(object):
+
+    def __init__(self, hookView):
+        self.hookView = hookView
+
     def setupUi(self, CreateEditHook):
         CreateEditHook.setObjectName("CreateEditHook")
         CreateEditHook.resize(372, 132)
+        self.dialog = CreateEditHook
         self.verticalLayoutWidget_4 = QtWidgets.QWidget(CreateEditHook)
         self.verticalLayoutWidget_4.setGeometry(QtCore.QRect(0, 0, 371, 131))
         self.verticalLayoutWidget_4.setObjectName("verticalLayoutWidget_4")
@@ -47,16 +52,26 @@ class Ui_CreateEditHook(object):
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_6.addItem(spacerItem)
-        self.saveButton = QtWidgets.QPushButton(self.verticalLayoutWidget_4)
-        self.saveButton.setObjectName("saveButton")
-        self.horizontalLayout_6.addWidget(self.saveButton)
+        self.saveHookButton = QtWidgets.QPushButton(self.verticalLayoutWidget_4)
+        self.saveHookButton.setObjectName("saveButton")
+        self.horizontalLayout_6.addWidget(self.saveHookButton)
         self.cancelButton = QtWidgets.QPushButton(self.verticalLayoutWidget_4)
         self.cancelButton.setObjectName("cancelButton")
         self.horizontalLayout_6.addWidget(self.cancelButton)
         self.verticalLayout_4.addLayout(self.horizontalLayout_6)
-
+        self.setupSignals()
         self.retranslateUi(CreateEditHook)
         QtCore.QMetaObject.connectSlotsByName(CreateEditHook)
+
+    def saveHookButtonClicked(self):
+        name = self.hookNameEdit.text()
+        description = self.descriptionEdit.text()
+        path = self.hookPathEdit.text()
+        self.hookView.updateHookView(name=name, description=description, path=path)
+        self.dialog.accept()
+
+    def setupSignals(self):
+        self.saveHookButton.clicked.connect(self.saveHookButtonClicked)
 
     def retranslateUi(self, CreateEditHook):
         _translate = QtCore.QCoreApplication.translate
@@ -64,5 +79,5 @@ class Ui_CreateEditHook(object):
         self.label.setText(_translate("CreateEditHook", "Hook Name"))
         self.label_2.setText(_translate("CreateEditHook", "Description"))
         self.label_3.setText(_translate("CreateEditHook", "Hook Path"))
-        self.saveButton.setText(_translate("CreateEditHook", "Save"))
+        self.saveHookButton.setText(_translate("CreateEditHook", "Save"))
         self.cancelButton.setText(_translate("CreateEditHook", "Cancel"))
