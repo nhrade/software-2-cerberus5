@@ -10,6 +10,9 @@ class Ui_LivePacketView(object):
         self.packets = None
         Form.setObjectName("Form")
         Form.resize(981, 842)
+        self.Form = Form
+        self.gridLayout_10 = QtWidgets.QGridLayout(Form)
+        self.gridLayout_10.setObjectName("gridLayout_10")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
@@ -283,20 +286,20 @@ class Ui_LivePacketView(object):
         self.gridLayout_8.addWidget(self.scrollArea_4, 0, 0, 5, 3)
         self.gridLayout_9.addWidget(self.groupBox, 2, 0, 3, 1)
         self.gridLayout.addWidget(self.FieldandFuzzing, 3, 0, 1, 1)
-        #self.gridLayout_10.addLayout(self.gridLayout, 0, 0, 1, 1)#####
+        self.gridLayout_10.addLayout(self.gridLayout, 0, 0, 1, 1)#####
 
-        #self.retranslateUi(Form)
+        self.retranslateUi(Form)
         self.PacketView_2.setCurrentIndex(0)
         #QtCore.QMetaObject.connectSlotsByName(Form)
 
-    """def retranslateUi(self, Form):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.PcapFile.setTitle(_translate("Form", "PCAP File"))
         self.PCAFile_2.setText(_translate("Form", "PCAP File"))
-        self.PCAPLocation_2.setPlainText(_translate("Form", "PCAP File Path"))
-        self.OpenButton_2.setText(_translate("Form", "Open"))
-        self.CancelButton_2.setText(_translate("Form", "Cancel"))
+        #self.PCAPLocation_2.setPlainText(_translate("Form", "PCAP File Path"))
+        #self.OpenButton_2.setText(_translate("Form", "Open"))
+        #self.CancelButton_2.setText(_translate("Form", "Cancel"))
         self.PacketArea.setTitle(_translate("Form", "Packet Area"))
         self.ClearButton_4.setText(_translate("Form", "Clear"))
         self.treeWidget.headerItem().setText(0, _translate("Form", "Dissected Packets"))
@@ -419,7 +422,7 @@ class Ui_LivePacketView(object):
         self.FieldValuesCol_2.topLevelItem(4).setText(0, _translate("Form", "icmp.seq"))
         self.FieldValuesCol_2.topLevelItem(4).setText(1, _translate("Form", "0f00"))
         self.FieldValuesCol_2.topLevelItem(4).setText(2, _translate("Form", "2"))
-        self.FieldValuesCol_2.setSortingEnabled(__sortingEnabled)"""
+        self.FieldValuesCol_2.setSortingEnabled(__sortingEnabled)
 
     def initializeTable(self, tree, items, subitems):
         for i in range(items):

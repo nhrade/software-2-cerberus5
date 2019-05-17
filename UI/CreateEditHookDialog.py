@@ -57,13 +57,6 @@ class Ui_CreateEditHook(object):
 
         self.retranslateUi(CreateEditHook)
         QtCore.QMetaObject.connectSlotsByName(CreateEditHook)
-        self.saveButton.clicked(self.onSave)
-
-    def onSave(self):
-        hookName = self.hookNameEdit
-        hookPath = self.hookPathEdit
-        hookDescription = self.descriptionEdit
-
 
     def retranslateUi(self, CreateEditHook):
         _translate = QtCore.QCoreApplication.translate
