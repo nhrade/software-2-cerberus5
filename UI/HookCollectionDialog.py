@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'CreateEditHookCollection.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_hookCollectionDialog(object):
@@ -87,12 +79,12 @@ class Ui_hookCollectionDialog(object):
         self.gridLayout_2.addWidget(self.verticalScrollBar, 0, 1, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.listView_2 = QtWidgets.QListView(self.scrollAreaWidgetContents)
-        self.listView_2.setObjectName("listView_2")
-        self.gridLayout.addWidget(self.listView_2, 1, 1, 1, 1)
-        self.listView_3 = QtWidgets.QListView(self.scrollAreaWidgetContents)
-        self.listView_3.setObjectName("listView_3")
-        self.gridLayout.addWidget(self.listView_3, 1, 2, 1, 1)
+        self.statusListView = QtWidgets.QListView(self.scrollAreaWidgetContents)
+        self.statusListView.setObjectName("statusListView")
+        self.gridLayout.addWidget(self.statusListView, 1, 1, 1, 1)
+        self.hookExecutionListView = QtWidgets.QListView(self.scrollAreaWidgetContents)
+        self.hookExecutionListView.setObjectName("hookExecutionListView")
+        self.gridLayout.addWidget(self.hookExecutionListView, 1, 2, 1, 1)
         self.label_7 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         font = QtGui.QFont()
         font.setBold(True)
@@ -100,9 +92,9 @@ class Ui_hookCollectionDialog(object):
         self.label_7.setFont(font)
         self.label_7.setObjectName("label_7")
         self.gridLayout.addWidget(self.label_7, 0, 2, 1, 1)
-        self.listView = QtWidgets.QListView(self.scrollAreaWidgetContents)
-        self.listView.setObjectName("listView")
-        self.gridLayout.addWidget(self.listView, 1, 0, 1, 1)
+        self.hookListView = QtWidgets.QListView(self.scrollAreaWidgetContents)
+        self.hookListView.setObjectName("hookListView")
+        self.gridLayout.addWidget(self.hookListView, 1, 0, 1, 1)
         self.label_6 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         font = QtGui.QFont()
         font.setBold(True)
