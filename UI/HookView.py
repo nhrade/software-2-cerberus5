@@ -82,21 +82,21 @@ class Ui_HookView(object):
         QtCore.QMetaObject.connectSlotsByName(HookView)
     
     def setupSignals(self):
-		self.createHookButton.clicked.connect(self.onCreateHook)
+	self.createHookButton.clicked.connect(self.onCreateHook)
 	
-	def onCreateHook(self):
-		self.createHookDialog = QWidgets.QDialog()
-		self.createHook = Ui_createEditHook()
-		self.createHook.setupUi(self.createHookDialog)
-		self.saveButton.clicked.connect(self.onSaveButtonClicked)
-		self.createHookDialog.show()
+    def onCreateHook(self):
+	self.createHookDialog = QWidgets.QDialog()
+	self.createHook = Ui_createEditHook()
+	self.createHook.setupUi(self.createHookDialog)
+	self.saveButton.clicked.connect(self.onSaveButtonClicked)
+	self.createHookDialog.show()
 	
-	def onSaveButtonClicked(self):
-		name = self.hookNameEdit.text()
-		sequence = 0
-		status = True
-		description = self.descriptionEdit.text()
-		path = self.hookPathEdit.text()
+    def onSaveButtonClicked(self):
+	name = self.hookNameEdit.text()
+	sequence = 0
+	status = True
+	description = self.descriptionEdit.text()
+	path = self.hookPathEdit.text()
 
 
     def retranslateUi(self, HookView):
