@@ -6,7 +6,7 @@ class Ui_hookCollectionDialog(object):
 
     def __init__(self, hookCollectionManager, hookCollectionView):
         self.hookCollectionManager = hookCollectionManager
-        #self.hookCollectionView = self.hookCollectionView
+        self.hookCollectionView = self.hookCollectionView
 
     def setupUi(self, hookCollectionDialog):
         hookCollectionDialog.setObjectName("hookCollectionDialog")
@@ -142,8 +142,7 @@ class Ui_hookCollectionDialog(object):
         QtCore.QMetaObject.connectSlotsByName(hookCollectionDialog)
 
     def setupSignals(self):
-        pass
-        #self.saveButton.clicked(self.saveButtonClicked)
+        self.saveButton.clicked.connect(self.saveButtonClicked)
 
     def saveButtonClicked(self):
         description = self.descriptionEdit.text()

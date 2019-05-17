@@ -52,9 +52,7 @@ class Ui_HookCollectionView(object):
         self.gridLayout.addWidget(self.hookCollectionTable, 3, 2, 1, 3)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        self.setupSignals()
 
-    def setupSignals(self):
         self.createHookCollectionButton.clicked.connect(self.onCreateHookCollection)
 
     def onCreateHookCollection(self):
