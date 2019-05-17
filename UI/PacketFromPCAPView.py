@@ -473,7 +473,7 @@ class Ui_PacketFromPCAPView(object):
         scapyUtilities.editPacket(packet, layer, field, value)
         
     def forwardPacket(self):
-        packet = self.packets.pop()
+        packet = self.packets.pop(0)
         filterManager.forwardPacket(packet)
 
     def clearTables(self):
