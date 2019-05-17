@@ -1,7 +1,11 @@
+
+from scapy.all import *
+import os
+
 '''
 hook2.py
 @author Noah
-changes source port of tcp packets to 44444
+changes source port of DNS packets to 44444
 '''
 class Hook2:
 
