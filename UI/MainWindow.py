@@ -2,11 +2,15 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow, QWidget
+#from MainWindow import Ui_MainWindow
 from HookView import Ui_HookView
 from HookCollectionView import Ui_HookCollectionView
 from LivePacketView import Ui_LivePacketView
 from PacketFromPCAPView import Ui_PacketFromPCAPView
-from Backend.HookCollectionManager import HookCollectionManager
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'Backend'))
+from HookCollectionManager import HookCollectionManager
+
 
 class Ui_MainWindow(object):
 
@@ -150,4 +154,13 @@ class Ui_MainWindow(object):
         self.actionProxy_Behavior_Disabled.setText(_translate("MainWindow", "Proxy Behavior Disabled"))
         self.actionQueue_Error_Message.setText(_translate("MainWindow", "Queue Error Message"))
         self.actionHook_Collection_Execution_Sequence_Error.setText(_translate("MainWindow", "Hook Collection Execution Sequence Error"))
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = QMainWindow()
+    mainWindow = Ui_MainWindow()
+    mainWindow.setupUi(window)
+    mainWindow.setupSignals()
+    window.show()
+    sys.exit(app.exec_())
 
