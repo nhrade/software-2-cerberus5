@@ -5,7 +5,7 @@ class Ui_HookView(object):
 	self.hookCollection = hookCollection
         
     def setupUi(self, HookView):
-        HookView.setObjectName("HookView")
+	HookView.setObjectName("HookView")
         HookView.resize(448, 338)
         self.gridLayout_3 = QtWidgets.QGridLayout(HookView)
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -97,7 +97,6 @@ class Ui_HookView(object):
 	status = True
 	description = self.descriptionEdit.text()
 	path = self.hookPathEdit.text()
-
 
     def retranslateUi(self, HookView):
         _translate = QtCore.QCoreApplication.translate
