@@ -7,7 +7,7 @@ class Ui_hookCollectionDialog(object):
 
     def __init__(self, hookCollectionManager, hookCollectionView):
         self.hookCollectionManager = hookCollectionManager
-        self.hookCollectionView = self.hookCollectionView
+        self.hookCollectionView = hookCollectionView
 
     def setupUi(self, hookCollectionDialog):
         hookCollectionDialog.setObjectName("hookCollectionDialog")
