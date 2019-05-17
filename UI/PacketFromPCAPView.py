@@ -235,6 +235,7 @@ class Ui_PacketFromPCAPView(object):
         self.gridLayout_8.addWidget(self.Drop_2, 6, 2, 1, 1)
         self.Forward_2 = QtWidgets.QPushButton(self.groupBox)
         self.Forward_2.setObjectName("Forward_2")
+        self.Forward_2.clicked.connect(self.forwardPacket)
         self.gridLayout_8.addWidget(self.Forward_2, 6, 1, 1, 1)
         self.comboBox_8 = QtWidgets.QComboBox(self.groupBox)
         self.comboBox_8.setObjectName("comboBox_8")
@@ -471,7 +472,8 @@ class Ui_PacketFromPCAPView(object):
     def editFieldArea(self, packet, layer, field, value):
         scapyUtilities.editPacket(packet, layer, field, value)
         
-    def forwardPacket(self, packet):
+    def forwardPacket(self):
+        packet = self.packets.pop()
         filterManager.forwardPacket(packet)
 
     def clearTables(self):
