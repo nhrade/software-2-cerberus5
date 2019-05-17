@@ -4,7 +4,7 @@ from threading import Thread, Event
 from time import sleep
 from netfilterqueue import NetfilterQueue
 import datetime
-
+from Hook import hookList
 
 class Sniffer(Thread):
 	def __init__(self, filter_="", file__ = "snifferPcap.pcap", function = None):#interface="eth0",
@@ -47,11 +47,14 @@ class Sniffer(Thread):
 		pkt = IP(packet.get_payload())
 		packet.drop()
 		#modify packet		#send to enabled Hook Collections
+		for h in hookList:
+			pkt = h.hook.run(pkt)
+        
 		if not sniff(offline=pkt, filter=self.filter_):
 			print("packet Denied")
 			send(pkt)#############################
 			return
-		self.func(pkt)
+		
 		wrpcap(self.file_, pkt, append = True)
 		print("packet Accepted")
 		send(pkt)#############################
