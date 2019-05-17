@@ -1,7 +1,10 @@
 import os
 import sys
 import Hook
-
+'''
+HookCollection.py
+author: Riley
+'''
 class HookCollection:
 	def __init__(self, name, sequenceNumber, status, description, associationCounter, listOfHooks):
 		self.name = name
