@@ -14,7 +14,7 @@ from HookCollectionManager import HookCollectionManager
 
 class Ui_MainWindow(object):
 
-    def setupHooks(self):
+    def __init__(self):
         self.hookCollectionManager = HookCollectionManager()
 
     def setupUi(self, MainWindow):
@@ -71,7 +71,7 @@ class Ui_MainWindow(object):
         self.hookViewWidget = QWidget()
         self.hookView.setupUi(self.hookViewWidget)
 
-        self.hookCollectionView = Ui_HookCollectionView()
+        self.hookCollectionView = Ui_HookCollectionView(self.hookCollectionManager)
         self.hookCollectionViewWidget = QWidget()
         self.hookCollectionView.setupUi(self.hookCollectionViewWidget)
 
@@ -124,7 +124,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.stackedContentView.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.setupHooks()
 
     def changeContentView(self, index):
         self.stackedContentView.setCurrentIndex(index)
