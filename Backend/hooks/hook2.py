@@ -16,6 +16,6 @@ class Hook2:
     :returns modified packet:
     '''
     def run(self, packet):
-        if 'DNS' in packet:
-            packet['DNS'].sport = 44444
+        if DNS in packet:
+            packet['UDP'].sport = 44444
         return packet

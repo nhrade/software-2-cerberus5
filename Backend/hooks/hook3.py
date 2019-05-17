@@ -1,3 +1,5 @@
+from scapy.all import *
+
 '''
 hook3.py
 @author Noah
