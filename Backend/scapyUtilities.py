@@ -84,14 +84,16 @@ def addFilter(filter_):
 	sniffer = Sniffer(filter__)
 	print("modified filter")
 
-def toggleTheSniffer(capture):
+def toggleTheSniffer(capture = None):
+	print(capture)
 	print(capture)
 	global sniffer
-	if capture and not sniffer.isAlive():
+	if capture is not None and not sniffer.isAlive():
 		print("[*] Start sniffing...")
 		try:
 			os.system(saveIPTables_)
 			os.system(snifferIPTables)
+			sniffer = Sniffer(filter__, function = capture)
 			sniffer.start()
 		except:
 			os.system(restoreIPTables_)

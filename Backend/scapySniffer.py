@@ -7,9 +7,9 @@ import datetime
 
 
 class Sniffer(Thread):
-	def __init__(self, filter_="", file__ = "snifferPcap.pcap"):#interface="eth0",
+	def __init__(self, filter_="", file__ = "snifferPcap.pcap", function = None):#interface="eth0",
 		super().__init__()
-
+		self.func = function
 		self.daemon = True
 		self.socket = None
 		self.file_ = file__
@@ -19,8 +19,8 @@ class Sniffer(Thread):
 		self.nfqueue = NetfilterQueue()
 
 	def run(self):
-		now = datetime.datetime.now()
-		""""file__ = str(now.strftime("%Y-%m-%d_%H.%M.%S"))+'.pcap'
+		""""now = datetime.datetime.now()
+		file__ = str(now.strftime("%Y-%m-%d_%H.%M.%S"))+'.pcap'
 
 		print(file__)"""
 		open(self.file_, 'w').close()
@@ -46,12 +46,12 @@ class Sniffer(Thread):
 	def modify_using_hooks(self, packet):
 		pkt = IP(packet.get_payload())
 		packet.drop()
-		#modify packet
+		#modify packet		#send to enabled Hook Collections
 		if not sniff(offline=pkt, filter=self.filter_):
 			print("packet Denied")
 			send(pkt)#############################
 			return
-		#send to enabled Hook Collections
+		self.func(pkt)
 		wrpcap(self.file_, pkt, append = True)
 		print("packet Accepted")
 		send(pkt)#############################
